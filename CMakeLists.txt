@@ -1,0 +1,40 @@
+# Set the minimum version of CMake that can be used
+cmake_minimum_required(VERSION 3.5)
+
+# Set the name of project -> sets PROJECT_NAME
+project(Emagick)
+
+# Set the C++ standard
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+
+# Set the sources of the project
+set(SOURCES
+    src/main.cpp
+    src/utilities.cpp
+    src/Emagick.cpp
+)
+
+# Find the package
+find_package(ImageMagick COMPONENTS Magick++ REQUIRED)
+
+# Add extra compiler flags
+add_definitions(-DMAGICKCORE_HDRI_ENABLE=1 -DMAGICKCORE_QUANTUM_DEPTH=16)
+
+# Generate executable in /bin
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
+
+# Add the executable from sources
+add_executable(${PROJECT_NAME} ${SOURCES})
+
+# Set the directories that should be included in the build command for this target
+target_include_directories(${PROJECT_NAME}
+    PRIVATE
+    ${ImageMagick_INCLUDE_DIRS}
+    ${CMAKE_SOURCE_DIR}/include
+)
+
+# Link libraries
+target_link_libraries(${PROJECT_NAME}
+    ${ImageMagick_LIBRARIES}
+)

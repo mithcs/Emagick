@@ -1,0 +1,20 @@
+[
+{
+  "directory": "/home/veloXm/projects/Emagick/build",
+  "command": "/usr/bin/c++ -DMAGICKCORE_HDRI_ENABLE=1 -DMAGICKCORE_QUANTUM_DEPTH=16 -I/usr/include/ImageMagick-7 -I/home/veloXm/projects/Emagick/include -std=gnu++11 -o CMakeFiles/Emagick.dir/src/main.cpp.o -c /home/veloXm/projects/Emagick/src/main.cpp",
+  "file": "/home/veloXm/projects/Emagick/src/main.cpp",
+  "output": "CMakeFiles/Emagick.dir/src/main.cpp.o"
+},
+{
+  "directory": "/home/veloXm/projects/Emagick/build",
+  "command": "/usr/bin/c++ -DMAGICKCORE_HDRI_ENABLE=1 -DMAGICKCORE_QUANTUM_DEPTH=16 -I/usr/include/ImageMagick-7 -I/home/veloXm/projects/Emagick/include -std=gnu++11 -o CMakeFiles/Emagick.dir/src/utilities.cpp.o -c /home/veloXm/projects/Emagick/src/utilities.cpp",
+  "file": "/home/veloXm/projects/Emagick/src/utilities.cpp",
+  "output": "CMakeFiles/Emagick.dir/src/utilities.cpp.o"
+},
+{
+  "directory": "/home/veloXm/projects/Emagick/build",
+  "command": "/usr/bin/c++ -DMAGICKCORE_HDRI_ENABLE=1 -DMAGICKCORE_QUANTUM_DEPTH=16 -I/usr/include/ImageMagick-7 -I/home/veloXm/projects/Emagick/include -std=gnu++11 -o CMakeFiles/Emagick.dir/src/Emagick.cpp.o -c /home/veloXm/projects/Emagick/src/Emagick.cpp",
+  "file": "/home/veloXm/projects/Emagick/src/Emagick.cpp",
+  "output": "CMakeFiles/Emagick.dir/src/Emagick.cpp.o"
+}
+]
