@@ -23,7 +23,10 @@ set(HEADERS
     include/mainWindow.h
 )
 
-# Find the package
+# Add the QML resource file
+set(QML_RESOURCE src/qml.qrc)
+
+# Find the packages
 find_package(ImageMagick COMPONENTS Magick++ REQUIRED)
 find_package(Qt6 REQUIRED COMPONENTS Core Gui Qml Quick Widgets)
 
@@ -33,19 +36,13 @@ add_definitions(-DMAGICKCORE_HDRI_ENABLE=1 -DMAGICKCORE_QUANTUM_DEPTH=16)
 # Generate executable in /bin
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 
-
-## Just QT things
-
-# Add MOC (Meta-Object Compiler) Support
-qt6_wrap_cpp(MOC_FILES ${HEADERS})
-
+# For QML
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
-set(CMAKE_AUTOUIC ON)
-
+set(CMAKE_AUTOUIC OFF)
 
 # Add the executable from sources
-add_executable(${PROJECT_NAME} ${SOURCES} ${MOC_FILES})
+add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS} ${QML_RESOURCE})
 
 # Set the directories that should be included in the build command for this target
 target_include_directories(${PROJECT_NAME}

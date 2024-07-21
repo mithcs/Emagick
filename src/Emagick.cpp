@@ -93,7 +93,7 @@ int negateColors(Magick::Image& image) {
         return 1;
     }
 
-    return 1;
+    return 0;
 }
 
 int normalizeImage(Magick::Image& image) {
