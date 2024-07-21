@@ -1,9 +1,12 @@
+#include <QMessageBox>
 #include "mainWindow.h"
 #include "Emagick.h"
-#include <QMessageBox>
 
 // Constructor
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
+    // Set the initial size of the main window
+    resize(1280, 720);
+
     // Set up the UI elements
 
     // Create the QLabel to display the image
