@@ -1,117 +1,39 @@
+// Add GUI items here
+
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Dialogs
 
 ApplicationWindow {
+    title: "Emagick"
     visible: true
-    width: 800
-    height: 600
-    title: qsTr("Image Editor")
+    width: 1280
+    height: 720
 
-    // FileDialog to open an image
-    FileDialog {
-        id: openFileDialog
-        title: "Open Image"
-        nameFilters: ["Image files (*.png *.jpg *.jpeg *.bmp *.gif)"]
-        onAccepted: {
-            let filePath = openFileDialog.fileUrl.toLocalFile();
-            if (filePath) {
-                mainWindow.openImage(filePath);
-            } else {
-                console.log("No file selected");
-            }
-        }
-        onRejected: {
-            console.log("Open file dialog was canceled or failed");
-        }
-    }
+    Rectangle {
+        id: page
+        width: 320; height: 480
+        color: "lightgray"
 
-    // FileDialog to save an image
-    FileDialog {
-        id: saveFileDialog
-        title: "Save Image"
-        nameFilters: ["Image files (*.png *.jpg *.jpeg *.bmp *.gif)"]
-        onAccepted: {
-            let filePath = saveFileDialog.fileUrl.toLocalFile();
-            mainWindow.saveImage(filePath);
-        }
-    }
-
-    Column {
-        spacing: 10
-        padding: 10
-
-        Row {
-            spacing: 10
-
-            Button {
-                text: "Open Image"
-                onClicked: openFileDialog.open()
-            }
-
-            Button {
-                text: "Save Image"
-                onClicked: saveFileDialog.open()
-            }
+        Text {
+            id: helloText
+            text: "Hello world!"
+            y: 30
+            anchors.horizontalCenter: page.horizontalCenter
+            font.pointSize: 24; font.bold: true
         }
 
-        Row {
-            spacing: 10
+        Grid {
+            id: colorPicker
+            x: 4; anchors.bottom: page.bottom; anchors.bottomMargin: 4
+            rows: 2; columns: 3; spacing: 3
 
-            Button {
-                text: "Grayscale"
-                onClicked: mainWindow.applyGrayscale()
-            }
-
-            Button {
-                text: "Normalize"
-                onClicked: mainWindow.applyNormalize()
-            }
-
-            Button {
-                text: "Negate Colors"
-                onClicked: mainWindow.applyNegate()
-            }
-
-            Button {
-                text: "Oil Paint"
-                onClicked: mainWindow.applyOilPaint(3)
-            }
-
-            Button {
-                text: "Rotate"
-                onClicked: mainWindow.applyRotate(90)
-            }
-
-            Button {
-                text: "Change Gamma"
-                onClicked: mainWindow.applyGamma(1.5)
-            }
-
-            Button {
-                text: "Change Brightness"
-                onClicked: mainWindow.applyBrightness(120)
-            }
-
-            Button {
-                text: "Crop Image"
-                onClicked: mainWindow.applyCrop(50, 50, 200, 200)
-            }
-        }
-
-        Image {
-            id: imageView
-            width: 800
-            height: 800
-            fillMode: Image.PreserveAspectFit
-            anchors.horizontalCenter: parent.horizontalCenter
-        }
-
-        Connections {
-            target: mainWindow
-            function onImageUpdated() {
-                imageView.source = "file:///tmp/output_image.jpg";
-            }
+            Cell { cellColor: "red"; onClicked: helloText.color = cellColor }
+            Cell { cellColor: "green"; onClicked: helloText.color = cellColor }
+            Cell { cellColor: "blue"; onClicked: helloText.color = cellColor }
+            Cell { cellColor: "yellow"; onClicked: helloText.color = cellColor }
+            Cell { cellColor: "steelblue"; onClicked: helloText.color = cellColor }
+            Cell { cellColor: "black"; onClicked: helloText.color = cellColor }
         }
     }
 }
