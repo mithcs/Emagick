@@ -1,39 +1,39 @@
-// Add GUI items here
-
 import QtQuick
 import QtQuick.Controls
-import QtQuick.Dialogs
 
-ApplicationWindow {
-    title: "Emagick"
+// Window type for simple GUI
+Window {
+    // Make it visible
     visible: true
-    width: 1280
-    height: 720
 
-    Rectangle {
-        id: page
-        width: 320; height: 480
-        color: "lightgray"
+    // Set up geometry
+    width: 800
+    height: 800
 
-        Text {
-            id: helloText
-            text: "Hello world!"
-            y: 30
-            anchors.horizontalCenter: page.horizontalCenter
-            font.pointSize: 24; font.bold: true
-        }
+    // Set id
+    id: mainWindow
 
-        Grid {
-            id: colorPicker
-            x: 4; anchors.bottom: page.bottom; anchors.bottomMargin: 4
-            rows: 2; columns: 3; spacing: 3
+    // Set the title of window
+    title: "Emagick"
 
-            Cell { cellColor: "red"; onClicked: helloText.color = cellColor }
-            Cell { cellColor: "green"; onClicked: helloText.color = cellColor }
-            Cell { cellColor: "blue"; onClicked: helloText.color = cellColor }
-            Cell { cellColor: "yellow"; onClicked: helloText.color = cellColor }
-            Cell { cellColor: "steelblue"; onClicked: helloText.color = cellColor }
-            Cell { cellColor: "black"; onClicked: helloText.color = cellColor }
-        }
+    // Set the background color
+    // color: "#000000"
+
+    // Set up text
+    Text {
+        text: "Welcome to <b>Emagick!</b>"
+
+        leftPadding: 15
+        rightPadding: 15
+        topPadding: 15
+
+        horizontalAlignment: Text.AlignHCenter
+
+        font.family: "Helvetica"
+        font.pointSize: 16
+
+        font.weight: 600
+
+        color: "#88f"
     }
 }
