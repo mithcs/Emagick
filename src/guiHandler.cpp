@@ -7,6 +7,7 @@
 
 #include "guiHandler.h"
 
+
 // Constructor for GuiHandler class
 GuiHandler::GuiHandler(QObject *parent) : QObject(parent) {}
 
@@ -46,32 +47,37 @@ QString GuiHandler::getImageData() {
         return QString();
     }
 
+    // Create a buffer
     QByteArray byteArray;
     QBuffer buffer(&byteArray);
     buffer.open(QIODevice::WriteOnly);
 
-    // Save the QImage to the buffer in PNG format
-    image.save(&buffer, "PNG");
+    // Get the file extension
+    std::string extension = mainImage.magick();
+
+    // Save the QImage to the buffer
+    try { 
+        // image.save(&buffer, extension.c_str());
+        image.save(&buffer, "PNG");
+    } catch (const std::exception &error_) {
+        qWarning() << "Unable to save image to buffer: " << error_.what();
+    }
 
     // Encode the image data in Base64 and return as a QString
     return QString::fromUtf8(byteArray.toBase64());
 }
 
 QImage GuiHandler::convertToQImage() {
-    // Create a QImage with the same dimensions as the Magick::Image
-    QImage qImage(mainImage.columns(), mainImage.rows(), QImage::Format_RGB888);
+    // Create a blob to hold the image data
+    Magick::Blob blob;
+    
+    // Write the image to the blob in a format suitable for QImage
+    mainImage.write(&blob, "RGBA");
 
-    // Iterate through each pixel of the Magick::Image
-    for (int y = 0; y < mainImage.rows(); ++y) {
-        for (int x = 0; x < mainImage.columns(); ++x) {
-            // Get the color of the pixel from Magick::Image
-            Magick::ColorRGB color = mainImage.pixelColor(x, y);
-
-            // Set the corresponding pixel color in the QImage
-            qImage.setPixel(x, y, qRgb(color.red() * 255, color.green() * 255, color.blue() * 255));
-        }
-    }
-
-    // Return the populated QImage
-    return qImage;
+    // Create a QImage using the blob data
+    QImage qImage((const uchar*)blob.data(), mainImage.columns(), mainImage.rows(), QImage::Format_RGBA8888);
+    
+    // Ensure the QImage does not share data with the blob
+    // And therefore avoids seg fault
+    return qImage.copy();
 }
