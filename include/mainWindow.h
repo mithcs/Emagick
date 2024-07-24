@@ -1,8 +1,11 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QObject>
 #include <Magick++.h>
+#include <QObject>
+#include <QString>
+#include <QImage>
+#include <QByteArray>
 
 class MainWindow : public QObject
 {
@@ -10,24 +13,16 @@ class MainWindow : public QObject
 public:
     explicit MainWindow(QObject *parent = nullptr);
 
-// public slots:
-//     void openImage(const QString &imagePath);
-//     void saveImage(const QString &baseName);
-//     void applyCrop(int x, int y, int width, int height);
-//     void applyGrayscale();
-//     void applyGamma(float factor);
-//     void applyRotate(float degrees);
-//     void applyNegate();
-//     void applyNormalize();
-//     void applyOilPaint(int radius);
-//     void applyBrightness(float factor);
+public slots:
+    void loadImage(const QString &filePath);
+    QString getImageData();  // Return data as QString
 
-// signals:
-//     void imageUpdated();
+signals:
+    void imageLoaded();
 
-// private:
-//     Magick::Image image;
-//     bool imageLoaded;
+private:
+    QImage convertToQImage(const Magick::Image &magickImage);
+    QImage image;
 };
 
 #endif // MAINWINDOW_H
