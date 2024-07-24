@@ -1,4 +1,4 @@
-#include "utilities.h"
+#include "utility.h"
 
 std::string toLowercase(const std::string& str) {
     std::string lowerStr = str;

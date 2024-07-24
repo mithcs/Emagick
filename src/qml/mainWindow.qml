@@ -13,11 +13,11 @@ Window {
     visible: true
 
     // Set up geometry
-    width: 800
-    height: 800
+    width: Screen.width / 1.3
+    height: Screen.height / 1.3
 
-    // minimumWidth: 640
-    // minimumHeight: 480
+    minimumWidth: 640
+    minimumHeight: 480
 
     // maximumWidth: 1920
     // maximumHeight: 1080
@@ -27,24 +27,6 @@ Window {
 
     // Set the background color
     // color: "#000000"
-
-    // Set up text
-    Text {
-        text: "Welcome to <b>Emagick!</b>"
-
-        leftPadding: 15
-        rightPadding: 15
-        topPadding: 15
-
-        horizontalAlignment: Text.AlignHCenter
-
-        font.family: "Helvetica"
-        font.pointSize: 16
-
-        font.weight: 600
-
-        color: "#88f"
-    }
 
     // Set up mainImage
     Image {
@@ -56,15 +38,14 @@ Window {
         anchors.verticalCenter: parent.verticalCenter
         anchors.horizontalCenter: parent.horizontalCenter
 
-        // This is different than width, height as it opens image in AxB,
+        // According to docs:
+        // This is different than width, height as this opens image in AxB dimensions,
         // regardless of Image's width and height
-        sourceSize.width: 800
-        sourceSize.height: 800
+        sourceSize.width: window.width / 1.3
+        sourceSize.height: window.height / 1.3
 
-        // Set default source
-        // property var src = "data:image/png;base64," + mainWindow.getImageData()
-        // console.log(src);
-        source: ""  // Initialize with empty source
+        // Initialize with empty source
+        source: ""
     }
 
     // A RowLayout to correctly position things...
@@ -77,11 +58,11 @@ Window {
             Layout.fillWidth: true
         }
 
-        // Set up Button
+        // Set up Open Image button
         Button {
             id: openImage
             text: "Open Image"
-            onClicked: fileDialog.open()
+            onClicked: openFile.open()
 
             // Set up content of button
             contentItem: Text {
@@ -99,22 +80,48 @@ Window {
             // }
         }
 
+        // Set up Save Image button
+        Button {
+            id: saveImage
+            text: "Save Image"
+            onClicked: saveFile.open()
+
+            // Set up content of button
+            contentItem: Text {
+                text: parent.text
+                font: parent.font
+
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+            }
+        }
+
         // Fill the width of row
         Item {
             Layout.fillWidth: true
         }
     }
 
-    // Set up File Dialog
+    // Set up openFile Dialog
     FileDialog {
-        id: fileDialog
+        id: openFile
         currentFolder: StandardPaths.standardLocations(StandardPaths.PicturesLocation)[0]
 
         onAccepted: {
             // Load the image and set the source directly
-            mainWindow.loadImage(selectedFile);
-            var imageData = mainWindow.getImageData();  // Get the image data
+            guiOps.loadImage(selectedFile)
+            var imageData = guiOps.getImageData()
             mainImage.source = "data:image/png;base64," + imageData;
+        }
+    }
+
+    // Set up saveFile Dialog
+    FileDialog {
+        id: saveFile
+        currentFolder: StandardPaths.standardLocations(StandardPaths.PicturesLocation)[0]
+
+        onAccepted: {
+            guiOps.saveImage(selectedFile)
         }
     }
 }

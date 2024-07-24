@@ -1,5 +1,5 @@
 #include "Emagick.h"
-#include "utilities.h"
+#include "utility.h"
 
 int readImage(std::string& imagePath, Magick::Image& image) {
     try {

@@ -1,7 +1,8 @@
 #include <QApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
-#include "mainWindow.h"
+
+#include "guiHandler.h"
 
 int main(int argc, char **argv) {
     QApplication app(argc, argv);
@@ -9,14 +10,14 @@ int main(int argc, char **argv) {
     // Initialize ImageMagick
     Magick::InitializeMagick(*argv);
 
-    // Create an instance of MainWindow
-    MainWindow mainWindow;
+    // Create an instance of GuiHandler
+    GuiHandler guiOps;
 
     // Create a QML application engine
     QQmlApplicationEngine engine;
 
     // Expose MainWindow instance to QML
-    engine.rootContext()->setContextProperty("mainWindow", &mainWindow);
+    engine.rootContext()->setContextProperty("guiOps", &guiOps);
 
     // Load the QML file
     engine.load(QUrl(QStringLiteral("qrc:/qml/mainWindow.qml")));
