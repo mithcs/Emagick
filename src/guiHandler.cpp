@@ -3,7 +3,7 @@
 #include <QDebug>
 #include <QImage>
 #include <QByteArray>
-#include <exception>
+#include <QUrl>
 
 #include "guiHandler.h"
 
@@ -30,8 +30,11 @@ void GuiHandler::loadImage(const QString &filePath) {
 
 void GuiHandler::saveImage(const QString &filepath) {
     try {
+        // Make file path readable by magick
+        QString localFilePath = QUrl(filepath).toLocalFile();
+
         // Attempt to write the image to the specified file path
-        mainImage.write(filepath.toStdString());
+        mainImage.write(localFilePath.toStdString());
     } catch (const std::exception &error_) {
         qWarning() << "Failed to save image: " << error_.what();
     }

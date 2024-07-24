@@ -1,3 +1,4 @@
+#include <Magick++.h>
 #include <QApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
@@ -20,7 +21,7 @@ int main(int argc, char **argv) {
     engine.rootContext()->setContextProperty("guiOps", &guiOps);
 
     // Load the QML file
-    engine.load(QUrl(QStringLiteral("qrc:/qml/mainWindow.qml")));
+    engine.load(QUrl(QStringLiteral("qrc:/qml/MainWindow.qml")));
 
     // Check if the QML file loaded successfully
     if (engine.rootObjects().isEmpty()) {

@@ -106,12 +106,20 @@ Window {
     FileDialog {
         id: openFile
         currentFolder: StandardPaths.standardLocations(StandardPaths.PicturesLocation)[0]
+        nameFilters: ["Images (*.jpeg, *.jpg, *.png, *.bmp)", "All Files (*)"]
 
         onAccepted: {
+            console.log("Accepted File")
+
             // Load the image and set the source directly
             guiOps.loadImage(selectedFile)
+            console.log("loadImage Function ended")
+
+            console.log("getImageData Function started")
             var imageData = guiOps.getImageData()
+            console.log("getImageData Function ended")
             mainImage.source = "data:image/png;base64," + imageData;
+            console.log("Image should be seen")
         }
     }
 
@@ -119,6 +127,10 @@ Window {
     FileDialog {
         id: saveFile
         currentFolder: StandardPaths.standardLocations(StandardPaths.PicturesLocation)[0]
+
+        fileMode: FileDialog.SaveFile
+
+        nameFilters: ["Images (*.jpeg, *.jpg, *.png, *.bmp)", "All Files (*)"]
 
         onAccepted: {
             guiOps.saveImage(selectedFile)
