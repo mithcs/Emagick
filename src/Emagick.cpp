@@ -1,19 +1,19 @@
 #include "Emagick.h"
 #include "utility.h"
 
-int readImage(std::string& imagePath, Magick::Image& image) {
+bool readImage(std::string& imagePath, Magick::Image& image) {
     try {
         // Read file from imagePath to Image object.
         image.read(imagePath);
     }
     catch(Magick::Exception &error_) {
         std::cout << "Unable to read image: " << error_.what() << std::endl;
-        return 1;
+        return false;
     }
-    return 0;
+    return true;
 }
 
-int writeImage(Magick::Image& image, std::string baseName) {
+bool writeImage(Magick::Image& image, std::string baseName) {
     // filename = baseName + . + extension
     std::string filename = baseName + "." + toLowercase(image.magick());
 
@@ -23,65 +23,65 @@ int writeImage(Magick::Image& image, std::string baseName) {
     }
     catch (Magick::Exception &error_) {
         std::cout << "Unable to write image: " << error_.what() << std::endl;
-        return 1;
+        return false;
     }
 
-    return 0;
+    return true;
 }
 
-int cropImage(Magick::Image& image, int x, int y, int offsetx, int offsety) {
+bool cropImage(Magick::Image& image, int x, int y, int offsetx, int offsety) {
     try {
         // Crop the image according the given geometry
         image.crop(Magick::Geometry(x, y, offsetx, offsety));
     }
     catch (Magick::Exception &error_) {
         std::cout << "Unable to crop image: " << error_.what() << std::endl;
-        return 1;
+        return false;
     }
     
-    return 0;
+    return true;
 }
 
-int grayscaleImage(Magick::Image& image) {
+bool grayscaleImage(Magick::Image& image) {
     try {
         // Grayscale the image
         image.type(Magick::GrayscaleType);
     }
     catch (Magick::Exception &error_) {
         std::cout << "Unable to Grayscale image: " << error_.what() << std::endl;
-        return 1;
+        return false;
     }
 
-    return 0;
+    return true;
 }
 
-int changeGamma(Magick::Image& image, float factor) {
+bool changeGamma(Magick::Image& image, float factor) {
     try {
         // Change gamma of the image
         image.gamma(factor);
     }
     catch (Magick::Exception &error_) {
         std::cout << "Unable to change gamma of the image: " << error_.what() << std::endl;
-        return 1;
+        return false;
     }
 
-    return 0;
+    return true;
 }
 
-int rotateImage(Magick::Image& image, float degrees) {
+bool rotateImage(Magick::Image& image, float degrees) {
     try {
         // Rotate the image degrees
         image.rotate(degrees);
     }
     catch (Magick::Exception &error_) {
         std::cout << "Unable to rotate image: " << error_.what() << std::endl;
-        return 1;
+        return false;
     }
 
-    return 0;
+    return true;
 }
 
-int negateColors(Magick::Image& image) {
+bool negateColors(Magick::Image& image) {
     try {
         // Negate colors of the image
 
@@ -90,38 +90,38 @@ int negateColors(Magick::Image& image) {
     }
     catch (Magick::Exception &error_) {
         std::cout << "Unable to negate colors: " << error_.what() << std::endl;
-        return 1;
+        return false;
     }
 
-    return 0;
+    return true;
 }
 
-int normalizeImage(Magick::Image& image) {
+bool normalizeImage(Magick::Image& image) {
     try {
         // Normalize the image
         image.normalize();
     }
     catch (Magick::Exception &error_) {
         std::cout << "Unable to normalize image: " << error_.what() << std::endl;
-        return 1;
+        return false;
     }
-    return 0;
+    return true;
 }
 
-int oilPaintImage(Magick::Image& image, int radius) {
+bool oilPaintImage(Magick::Image& image, int radius) {
     try {
         // Oil Paint the image
         image.oilPaint(radius);
     }
     catch (Magick::Exception &error_) {
         std::cout << "Unable to Oil Paint image: " << error_.what() << std::endl;
-        return 1;
+        return false;
     }
 
-    return 0;
+    return true;
 }
 
-int changeBrightness(Magick::Image& image, float factor) {
+bool changeBrightness(Magick::Image& image, float factor) {
     try {
         // Change the brightness of image
         // The values are actually '%' (100 for no change)
@@ -129,8 +129,8 @@ int changeBrightness(Magick::Image& image, float factor) {
     }
     catch (Magick::Exception &error_) {
         std::cout << "Unable to change brightness of the image: " << error_.what() << std::endl;
-        return 1;
+        return false;
     }
 
-    return 0;
+    return true;
 }

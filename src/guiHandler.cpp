@@ -5,9 +5,10 @@
 #include <QByteArray>
 #include <QUrl>
 #include <QImageWriter>
+#include <qlogging.h>
 
 #include "guiHandler.h"
-
+#include "Emagick.h"
 
 // Constructor for GuiHandler class
 GuiHandler::GuiHandler(QObject *parent) : QObject(parent) {}
@@ -22,10 +23,6 @@ void GuiHandler::loadImage(const QString &filePath) {
 
         // Convert the loaded Magick::Image to QImage format for Qt usage
         image = convertToQImage();
-
-        // Emit a signal indicating the image has been successfully loaded
-        emit imageLoaded();
-
     } catch (const std::exception &error_) {
         qWarning() << "Failed to load image: " << error_.what();
     }
@@ -88,3 +85,10 @@ QImage GuiHandler::convertToQImage() {
     return qImage.copy();
 }
 
+bool GuiHandler::applyNormalization() {
+    if (!normalizeImage(mainImage)) {
+        qWarning() << "Unable to normalize image";
+        return false;
+    }
+    return true;
+}
