@@ -48,7 +48,7 @@ bool grayscaleImage(Magick::Image& image) {
         image.type(Magick::GrayscaleType);
     }
     catch (Magick::Exception &error_) {
-        std::cout << "Unable to Grayscale image: " << error_.what() << std::endl;
+        std::cout << "Unable to grayscale image: " << error_.what() << std::endl;
         return false;
     }
 
@@ -114,7 +114,7 @@ bool oilPaintImage(Magick::Image& image, int radius) {
         image.oilPaint(radius);
     }
     catch (Magick::Exception &error_) {
-        std::cout << "Unable to Oil Paint image: " << error_.what() << std::endl;
+        std::cout << "Unable to oil paint image: " << error_.what() << std::endl;
         return false;
     }
 
@@ -129,6 +129,32 @@ bool changeBrightness(Magick::Image& image, float factor) {
     }
     catch (Magick::Exception &error_) {
         std::cout << "Unable to change brightness of the image: " << error_.what() << std::endl;
+        return false;
+    }
+
+    return true;
+}
+
+bool despeckleImage(Magick::Image& image) {
+    try {
+        // Despeckle the image
+        image.despeckle();
+    }
+    catch (Magick::Exception &error_) {
+        std::cout << "Unable to despeckle image: " << error_.what() << std::endl;
+        return false;
+    }
+
+    return true;
+}
+
+bool equalizeImage(Magick::Image& image) {
+    try {
+        // Equalize the image
+        image.equalize();
+    }
+    catch (Magick::Exception &error_) {
+        std::cout << "Unable to equalize image: " << error_.what() << std::endl;
         return false;
     }
 

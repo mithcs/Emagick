@@ -81,23 +81,17 @@ Window {
             // Set up Open Image button
             Button {
                 id: openImage
+                text: "Open Image"
 
                 onClicked: openFile.open()
-
-                contentItem: Text {
-                    text: "Open Image"
-                }
             }
 
             // Set up Save Image button
             Button {
                 id: saveImage
+                text: "Save Image"
 
                 onClicked: saveFile.open()
-
-                contentItem: Text {
-                    text: "Save Image"
-                }
             }
 
             // Fill the width of row
@@ -108,7 +102,7 @@ Window {
     }
 
 
-    // Container for:   Normalize, GrayScale
+    // Container for:   Normalize, Grayscale, Negate
     Item {
         id: operationsItem1
 
@@ -139,12 +133,52 @@ Window {
 
             Button {
                 id: grayscale
-                text: "GrayScale Image"
+                text: "Grayscale Image"
 
                 onClicked: {
-                    guiOps.apply
+                    guiOps.applyGrayscale()
+
+                    // Update image
+                    mainImage.source = guiOps.updatedImage()
                 }
             }
+
+            Button {
+                id: negate
+                text: "Negate Colors"
+
+                onClicked: {
+                    guiOps.applyNegation()
+
+                    // Update image
+                    mainImage.source = guiOps.updatedImage()
+                }
+            }
+
+            Button {
+                id: despeckle
+                text: "Despeckle Image"
+
+                onClicked: {
+                    guiOps.applyDespeckle()
+
+                    // Update image
+                    mainImage.source = guiOps.updatedImage()
+                }
+            }
+
+            Button {
+                id: equalize
+                text: "Equalize Image"
+
+                onClicked: {
+                    guiOps.applyEqualization()
+
+                    // Update image
+                    mainImage.source = guiOps.updatedImage()
+                }
+            }
+
         }
 
     }

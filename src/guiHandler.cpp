@@ -98,6 +98,42 @@ bool GuiHandler::applyNormalization() {
         qWarning() << "Unable to normalize image";
         return false;
     }
+
     return true;
 }
 
+bool GuiHandler::applyGrayscale() {
+    if (!grayscaleImage(mainImage)) {
+        qWarning() << "Unable to grayscale image";
+        return false;
+    }
+
+    return true;
+}
+
+bool GuiHandler::applyNegation() {
+    if (!negateColors(mainImage)) {
+        qWarning() << "Unable to negate colors";
+        return false;
+    }
+
+    return true;
+}
+
+bool GuiHandler::applyDespeckle() {
+    if (!despeckleImage(mainImage)) {
+        qWarning() << "Unable to despeckle image";
+        return false;
+    }
+
+    return true;
+}
+
+bool GuiHandler::applyEqualization() {
+    if (!equalizeImage(mainImage)) {
+        qWarning() << "Unable to equalize image";
+        return false;
+    }
+
+    return true;
+}

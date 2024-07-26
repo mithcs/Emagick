@@ -31,8 +31,17 @@ public slots:
     // Function to normalize image
     bool applyNormalization();
 
-    // Function to Oil Paint image
-    // TODO: Add me
+    // Function to grayscale image
+    bool applyGrayscale();
+
+    // Function to negate colors
+    bool applyNegation();
+
+    // Function to despeckle image
+    bool applyDespeckle();
+
+    // Function to equalize image
+    bool applyEqualization();
 
 
 private:
