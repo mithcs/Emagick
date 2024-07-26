@@ -28,7 +28,7 @@ Window {
 
         // Center the item
         anchors.centerIn: parent
-        anchors.verticalCenterOffset: -55
+        anchors.verticalCenterOffset: -45
 
         // Column for Image
         Column {
@@ -38,9 +38,11 @@ Window {
             spacing: 3
 
             Text {
+                id: nameAndRes
                 text: "IMAGE NAME + RESOLUTION HERE"
                 font.italic: true
                 color: "blue"
+
                 anchors.horizontalCenter: parent.horizontalCenter
             }
 
@@ -71,7 +73,7 @@ Window {
 
         RowLayout {
             width: parent.width
-            spacing: 20
+            spacing: parent.width / 40
 
             // Fill the width of row
             Item {
@@ -102,9 +104,10 @@ Window {
     }
 
 
-    // Container for:
-    // Normalize, Grayscale, Negate, Despeckle, Equalize,
-    // Erase, Flip, Flop, Magnify, Minify, Trim
+    // Container for left side operational buttons & stuff:
+    //  Normalize, Grayscale, Negate, Despeckle, Equalize,
+    //  Erase, Flip, Flop, Magnify, Minify, Trim, Change Brightness,
+    //  Add Noise
     Item {
         id: operationsItem1
 
@@ -112,18 +115,23 @@ Window {
         anchors.left: parent.left
         anchors.top: parent.top
 
-        anchors.leftMargin: 15
-        anchors.topMargin: 15
+        anchors.leftMargin: parent.width / 50
 
-        width: parent.width - imageItem.width
+        anchors.topMargin: parent.height / 9
+        anchors.bottomMargin: parent.height / 9
+
+        width: (parent.width - imageItem.width) / 2.2 - anchors.leftMargin
+        height: parent.height - anchors.topMargin
 
         Column {
-            spacing: 5
+            spacing: parent.height / 50
             width: parent.width
 
             Button {
                 id: normalize
                 text: "Normalize Image"
+
+                anchors.horizontalCenter: parent.horizontalCenter
 
                 onClicked: {
                     guiOps.applyNormalization()
@@ -137,6 +145,8 @@ Window {
                 id: grayscale
                 text: "Grayscale Image"
 
+                anchors.horizontalCenter: parent.horizontalCenter
+
                 onClicked: {
                     guiOps.applyGrayscale()
 
@@ -148,6 +158,8 @@ Window {
             Button {
                 id: negate
                 text: "Negate Colors"
+
+                anchors.horizontalCenter: parent.horizontalCenter
 
                 onClicked: {
                     guiOps.applyNegation()
@@ -161,6 +173,8 @@ Window {
                 id: despeckle
                 text: "Despeckle Image"
 
+                anchors.horizontalCenter: parent.horizontalCenter
+
                 onClicked: {
                     guiOps.applyDespeckle()
 
@@ -172,6 +186,8 @@ Window {
             Button {
                 id: equalize
                 text: "Equalize Image"
+
+                anchors.horizontalCenter: parent.horizontalCenter
 
                 onClicked: {
                     guiOps.applyEqualization()
@@ -185,6 +201,8 @@ Window {
                 id: erase
                 text: "Erase Image"
 
+                anchors.horizontalCenter: parent.horizontalCenter
+
                 onClicked: {
                     guiOps.applyErasure()
 
@@ -196,6 +214,8 @@ Window {
             Button {
                 id: flip
                 text: "Flip Image"
+
+                anchors.horizontalCenter: parent.horizontalCenter
 
                 onClicked: {
                     guiOps.applyFlip()
@@ -209,6 +229,8 @@ Window {
                 id: flop
                 text: "Flop Image"
 
+                anchors.horizontalCenter: parent.horizontalCenter
+
                 onClicked: {
                     guiOps.applyFlop()
 
@@ -220,6 +242,8 @@ Window {
             Button {
                 id: magnify
                 text: "Magnify Image"
+
+                anchors.horizontalCenter: parent.horizontalCenter
 
                 onClicked: {
                     guiOps.applyMagnification()
@@ -233,6 +257,8 @@ Window {
                 id: minify
                 text: "Minify Image"
 
+                anchors.horizontalCenter: parent.horizontalCenter
+
                 onClicked: {
                     guiOps.applyMinification()
 
@@ -245,6 +271,8 @@ Window {
                 id: trim
                 text: "Trim Edges"
 
+                anchors.horizontalCenter: parent.horizontalCenter
+
                 onClicked: {
                     guiOps.applyTrim()
 
@@ -256,6 +284,8 @@ Window {
 
             Slider {
                 id: brightnessSlider
+                width: parent.width
+
                 from: 0
                 value: 100
                 to: 200
@@ -274,6 +304,8 @@ Window {
                 id: brightness
                 text: "Change Brightness"
 
+                anchors.horizontalCenter: parent.horizontalCenter
+
                 onClicked: {
                     guiOps.applyBrightness(brightnessSlider.brightnessFactor)
 
@@ -283,12 +315,19 @@ Window {
             }
 
             Text {
-                text: "Brightness Factor: " + brightnessSlider.brightnessFactor
+                text: "Brightness Factor: <b>" + brightnessSlider.brightnessFactor + "</b>"
+
+                anchors.horizontalCenter: parent.horizontalCenter
+
+                font.pointSize: 10
+
                 color: "black"
             }
 
             ComboBox {
                 id: noiseType
+
+                anchors.horizontalCenter: parent.horizontalCenter
 
                 currentIndex: 1
 
@@ -301,6 +340,8 @@ Window {
 
                 text: "Add noise"
 
+                anchors.horizontalCenter: parent.horizontalCenter
+
                 onClicked: {
                     guiOps.applyNoise(noiseType.currentIndex)
 
@@ -312,6 +353,35 @@ Window {
         }
     }
 
+    // Container for right side operational buttons & stuff:
+    Item {
+        id: operationsItem2
+
+        // Anchors for setting margin
+        anchors.left: parent.left
+        anchors.top: parent.top
+
+        // 120 seems to be THE NUMBER.
+        anchors.leftMargin: parent.width / 1.20
+
+        anchors.topMargin: parent.height / 9
+        anchors.bottomMargin: parent.height / 9
+
+        // width: (parent.width - imageItem.width) * 0.1 - anchors.leftMargin
+        height: parent.height - anchors.topMargin
+        width: parent.width - anchors.leftMargin
+
+        Column {
+            spacing: parent.height / 50
+            width: parent.width
+
+            Button {
+                text: "Normalize Image"
+
+                anchors.horizontalCenter: parent.horizontalCenter
+            }
+        }
+    }
 
 
     // Set up openFile Dialog
