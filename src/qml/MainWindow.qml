@@ -102,7 +102,9 @@ Window {
     }
 
 
-    // Container for:   Normalize, Grayscale, Negate
+    // Container for:
+    // Normalize, Grayscale, Negate, Despeckle, Equalize,
+    // Erase, Flip, Flop, Magnify, Minify, Trim
     Item {
         id: operationsItem1
 
@@ -251,8 +253,63 @@ Window {
                 }
             }
 
-        }
 
+            Slider {
+                id: brightnessSlider
+                from: 0
+                value: 100
+                to: 200
+
+                property real brightnessFactor: 100
+
+                snapMode: Slider.SnapAlways
+                stepSize: 5
+
+                onMoved: {
+                    brightnessSlider.brightnessFactor = value
+                }
+            }
+
+            Button {
+                id: brightness
+                text: "Change Brightness"
+
+                onClicked: {
+                    guiOps.applyBrightness(brightnessSlider.brightnessFactor)
+
+                    // Update image
+                    mainImage.source = guiOps.updatedImage()
+                }
+            }
+
+            Text {
+                text: "Brightness Factor: " + brightnessSlider.brightnessFactor
+                color: "black"
+            }
+
+            ComboBox {
+                id: noiseType
+
+                currentIndex: 1
+
+                editable: true
+                model: ["Uniform Noise", "Gaussian Noise", "Multiplicative Gaussian Noise", "Impulse Noise", "Laplacian Noise", "Poisson Noise"]
+            }
+
+            Button {
+                id: noise
+
+                text: "Add noise"
+
+                onClicked: {
+                    guiOps.applyNoise(noiseType.currentIndex)
+
+                    // Update image
+                    mainImage.source = guiOps.updatedImage()
+                }
+            }
+
+        }
     }
 
 

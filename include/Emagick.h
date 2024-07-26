@@ -120,6 +120,13 @@ bool oilPaintImage(Magick::Image& image, int radius);
 // Returns true on success and false on failure
 bool rotateImage(Magick::Image& image, float degrees);
 
+// Add noise to the image
+//
+// -- Add noise to image with specified noise type
+//
+// Returns true on success and false on failure
+bool addNoise(Magick::Image& image, MagickCore::NoiseType noiseType);
+
 
 // ---------------------------------- 3 args -----------------------------------
 

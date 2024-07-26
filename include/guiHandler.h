@@ -58,6 +58,16 @@ public slots:
     // Function to minify image
     bool applyMinification();
 
+    // Function to trim image
+    bool applyTrim();
+
+    // Function to change brightness
+    bool applyBrightness(const float factor);
+
+    // Function to apply noise
+    bool applyNoise(const int iNoiseType);
+
+    // TODO: Contrast
 
 private:
     // Function to convert Magick::Image to QImage format for use in Qt

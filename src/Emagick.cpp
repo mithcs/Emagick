@@ -232,7 +232,20 @@ bool trimImage(Magick::Image& image) {
         image.trim();
     }
     catch (Magick::Exception &error_) {
-        std::cout << "Unable to trim image: " << error_.what() << std::endl;
+        std::cout << "Unable to trim edges: " << error_.what() << std::endl;
+        return false;
+    }
+
+    return true;
+}
+
+bool addNoise(Magick::Image& image, MagickCore::NoiseType NoiseType) {
+    try {
+        // Add the noise
+        image.addNoise(NoiseType);
+    }
+    catch (Magick::Exception &error_) {
+        std::cout << "Unable to add noise to image: " << error_.what() << std::endl;
         return false;
     }
 

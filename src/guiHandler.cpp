@@ -3,7 +3,6 @@
 #include <QImage>
 #include <QUrl>
 #include <QImageWriter>
-#include <qlogging.h>
 
 #include "guiHandler.h"
 #include "Emagick.h"
@@ -67,7 +66,8 @@ QString GuiHandler::updatedImage() {
 }
 
 
-// ##############################################
+// ######################################################################
+
 void GuiHandler::loadImage(const QString &filePath) {
     try {
         // Attempt to read the image from the specified file path
@@ -177,6 +177,51 @@ bool GuiHandler::applyMagnification() {
 bool GuiHandler::applyMinification() {
     if (!minifyImage(mainImage)) {
         qWarning() << "Unable to minify image";
+        return false;
+    }
+
+    return true;
+}
+
+bool GuiHandler::applyTrim() {
+    if (!trimImage(mainImage)) {
+        qWarning() << "Unable to trim edges";
+        return false;
+    }
+
+    return true;
+}
+
+bool GuiHandler::applyBrightness(const float factor) {
+    if (!changeBrightness(mainImage, factor)) {
+        qWarning() << "Unable to change brightness";
+        return false;
+    }
+
+    return true;
+}
+
+bool GuiHandler::applyNoise(const int iNoiseType) {
+    Magick::NoiseType noiseType;
+
+    switch (iNoiseType) {
+        case 0: noiseType = Magick::UniformNoise;
+                break;
+        case 1: noiseType = Magick::GaussianNoise;
+                break;
+        case 2: noiseType = Magick::MultiplicativeGaussianNoise;
+                break;
+        case 3: noiseType = Magick::ImpulseNoise;
+                break;
+        case 4: noiseType = Magick::LaplacianNoise;
+                break;
+        case 5: noiseType = Magick::PoissonNoise;
+                break;
+        default:qWarning() << "Unknown NoiseType";
+    }
+
+    if (!addNoise(mainImage, noiseType)) {
+        qWarning() << "Unable to add noise";
         return false;
     }
 
