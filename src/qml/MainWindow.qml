@@ -179,6 +179,78 @@ Window {
                 }
             }
 
+            Button {
+                id: erase
+                text: "Erase Image"
+
+                onClicked: {
+                    guiOps.applyErasure()
+
+                    // Update image
+                    mainImage.source = guiOps.updatedImage()
+                }
+            }
+
+            Button {
+                id: flip
+                text: "Flip Image"
+
+                onClicked: {
+                    guiOps.applyFlip()
+
+                    // Update image
+                    mainImage.source = guiOps.updatedImage()
+                }
+            }
+
+            Button {
+                id: flop
+                text: "Flop Image"
+
+                onClicked: {
+                    guiOps.applyFlop()
+
+                    // Update image
+                    mainImage.source = guiOps.updatedImage()
+                }
+            }
+
+            Button {
+                id: magnify
+                text: "Magnify Image"
+
+                onClicked: {
+                    guiOps.applyMagnification()
+
+                    // Update image
+                    mainImage.source = guiOps.updatedImage()
+                }
+            }
+
+            Button {
+                id: minify
+                text: "Minify Image"
+
+                onClicked: {
+                    guiOps.applyMinification()
+
+                    // Update image
+                    mainImage.source = guiOps.updatedImage()
+                }
+            }
+
+            Button {
+                id: trim
+                text: "Trim Edges"
+
+                onClicked: {
+                    guiOps.applyTrim()
+
+                    // Update image
+                    mainImage.source = guiOps.updatedImage()
+                }
+            }
+
         }
 
     }

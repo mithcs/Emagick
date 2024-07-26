@@ -43,6 +43,21 @@ public slots:
     // Function to equalize image
     bool applyEqualization();
 
+    // Function to erase image
+    bool applyErasure();
+
+    // Function to flip image
+    bool applyFlip();
+
+    // Function to flip image
+    bool applyFlop();
+
+    // Function to magnify image
+    bool applyMagnification();
+
+    // Function to minify image
+    bool applyMinification();
+
 
 private:
     // Function to convert Magick::Image to QImage format for use in Qt

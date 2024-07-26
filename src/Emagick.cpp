@@ -160,3 +160,81 @@ bool equalizeImage(Magick::Image& image) {
 
     return true;
 }
+
+bool eraseImage(Magick::Image& image) {
+    try {
+        // Erase the image
+        image.erase();
+    }
+    catch (Magick::Exception &error_) {
+        std::cout << "Unable to erase image: " << error_.what() << std::endl;
+        return false;
+    }
+
+    return true;
+}
+
+bool flipImage(Magick::Image& image) {
+    try {
+        // Flip the image
+        image.flip();
+    }
+    catch (Magick::Exception &error_) {
+        std::cout << "Unable to flip image: " << error_.what() << std::endl;
+        return false;
+    }
+
+    return true;
+}
+
+bool flopImage(Magick::Image& image) {
+    try {
+        // Flop the image
+        image.flop();
+    }
+    catch (Magick::Exception &error_) {
+        std::cout << "Unable to flop image: " << error_.what() << std::endl;
+        return false;
+    }
+
+    return true;
+}
+
+bool magnifyImage(Magick::Image& image) {
+    try {
+        // Magnify the image
+        image.magnify();
+    }
+    catch (Magick::Exception &error_) {
+        std::cout << "Unable to magnify image: " << error_.what() << std::endl;
+        return false;
+    }
+
+    return true;
+}
+
+bool minifyImage(Magick::Image& image) {
+    try {
+        // Minify the image
+        image.minify();
+    }
+    catch (Magick::Exception &error_) {
+        std::cout << "Unable to minify image: " << error_.what() << std::endl;
+        return false;
+    }
+
+    return true;
+}
+
+bool trimImage(Magick::Image& image) {
+    try {
+        // Trim the image
+        image.trim();
+    }
+    catch (Magick::Exception &error_) {
+        std::cout << "Unable to trim image: " << error_.what() << std::endl;
+        return false;
+    }
+
+    return true;
+}

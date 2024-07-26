@@ -137,3 +137,48 @@ bool GuiHandler::applyEqualization() {
 
     return true;
 }
+
+bool GuiHandler::applyErasure() {
+    if (!eraseImage(mainImage)) {
+        qWarning() << "Unable to erase image";
+        return false;
+    }
+
+    return true;
+}
+
+bool GuiHandler::applyFlip() {
+    if (!flipImage(mainImage)) {
+        qWarning() << "Unable to flip image";
+        return false;
+    }
+
+    return true;
+}
+
+bool GuiHandler::applyFlop() {
+    if (!flopImage(mainImage)) {
+        qWarning() << "Unable to flop image";
+        return false;
+    }
+
+    return true;
+}
+
+bool GuiHandler::applyMagnification() {
+    if (!magnifyImage(mainImage)) {
+        qWarning() << "Unable to magnify image";
+        return false;
+    }
+
+    return true;
+}
+
+bool GuiHandler::applyMinification() {
+    if (!minifyImage(mainImage)) {
+        qWarning() << "Unable to minify image";
+        return false;
+    }
+
+    return true;
+}

@@ -14,46 +14,125 @@ bool readImage(std::string& imagePath, Magick::Image& image);
 bool writeImage(Magick::Image& image, std::string basename);
 
 // -----------------------------------------------------------------------------
-
-// Grayscale the image
-// Returns true on success and false on failure
-bool grayscaleImage(Magick::Image& image);
-
-// Negate colors in the image
-// Returns true on success and false on failure
-bool negateColors(Magick::Image& image);
-
-// Normalize the image
-// Returns true on success and false on failure
-bool normalizeImage(Magick::Image& image);
+// ----------------------------------- 1 arg -----------------------------------
 
 // Despeckle the image
+//
+// -- Reduce speckle noise
+//
 // Returns true on success and false on failure
 bool despeckleImage(Magick::Image& image);
 
 // Equalize the image
+//
+// -- Historgram equalization
+//
 // Returns true on success and false on failure
 bool equalizeImage(Magick::Image& image);
 
-// Changes the gamma of image according to factor
+// Erase the image
+//
+// -- Set all image pixels to the current background color
+//
 // Returns true on success and false on failure
-bool changeGamma(Magick::Image& image, float factor);
+bool eraseImage(Magick::Image& image);
 
-// Rotate the image
+// Flip the image
+//
+// -- Reflect each scanline in the vertical direction
+//
 // Returns true on success and false on failure
-bool rotateImage(Magick::Image& image, float degrees);
+bool flipImage(Magick::Image& image);
 
-// Oil Pabool the image based on radius
+// Flop the image
+//
+// -- Reflect each scanline in the horizontal direction
+//
 // Returns true on success and false on failure
-bool oilPaintImage(Magick::Image& image, int radius);
+bool flopImage(Magick::Image& image);
+
+// Change the image color to grayscale
+//
+// Returns true on success and false on failure
+bool grayscaleImage(Magick::Image& image);
+
+// Magnify the image
+//
+// -- Magnify image by integral size
+//
+// Returns true on success and false on failure
+bool magnifyImage(Magick::Image& image);
+
+// Minify the image
+//
+// -- Magnify image by integral size
+//
+// Returns true on success and false on failure
+bool minifyImage(Magick::Image& image);
+
+// Negate colors in the image
+//
+// Returns true on success and false on failure
+bool negateColors(Magick::Image& image);
+
+// Normalize the image
+//
+// -- Increases contrast by normalizing the pixel values
+// to span the full range of color values
+//
+// Returns true on success and false on failure
+bool normalizeImage(Magick::Image& image);
+
+// Trims the image edges
+//
+// -- Trim edges that are the background color from the image
+//
+// Returns true on success and false on failure
+bool trimImage(Magick::Image& image);
+
+// ---------------------------------- 2 args -----------------------------------
 
 // Change the brightness of image according to factor(in %)
+//
+// -- Uses modulate under-the-hood -> modulate(brightness, saturation, hue), where 100% is default
+//
 // Returns true on success and false on failure
 bool changeBrightness(Magick::Image& image, float factor);
 
+// Gamma correct image
+//
+// -- Changes the gamma of image according to factor
+//
+// Returns true on success and false on failure
+bool changeGamma(Magick::Image& image, float factor);
+
+// Oil paint the image based on radius
+//
+// -- Make image look like oil painting
+//
+// Returns true on success and false on failure
+bool oilPaintImage(Magick::Image& image, int radius);
+
+// Rotate the image
+//
+// -- Rotate image counter-clockwise by specified number of degrees
+//
+// Returns true on success and false on failure
+bool rotateImage(Magick::Image& image, float degrees);
+
+
+// ---------------------------------- 3 args -----------------------------------
+
+
+// ---------------------------------- 3+ args ----------------------------------
+
 // Crops the image according to given geometry
+//
+// -- Crop subregion of original image
+//
 // Returns true on success and false on failure
 bool cropImage(Magick::Image& image, int x, int y, int offsetx, int offsety);
+
 
 // -----------------------------------------------------------------------------
 
