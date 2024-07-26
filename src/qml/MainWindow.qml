@@ -19,71 +19,136 @@ Window {
     // Set the title of window
     title: "Emagick"
 
-    // Set up mainImage
-    Image {
-        id: mainImage
-        fillMode: Image.PreserveAspectFit
+    // Container for image
+    Item {
+        id: imageItem
 
-        // Center the image
+        width: window.width / 1.5
+        height: window.height / 1.5
+
+        // Center the item
         anchors.centerIn: parent
+        anchors.verticalCenterOffset: -55
 
-        // Set vertical center offset
-        anchors.verticalCenterOffset: -20
+        // Column for Image
+        Column {
+            width: parent.width
 
-        // According to docs:
-        // This is different than width, height as this opens image in AxB dimensions,
-        // regardless of Image's width and height
-        sourceSize.width: window.width / 1.5
-        sourceSize.height: window.height / 1.5
+            // Space between text and image
+            spacing: 3
 
-        // Initialize with empty source
-        source: ""
+            Text {
+                text: "IMAGE NAME + RESOLUTION HERE"
+                font.italic: true
+                color: "blue"
+                anchors.horizontalCenter: parent.horizontalCenter
+            }
+
+            Image {
+                id: mainImage
+                fillMode: Image.PreserveAspectFit
+
+                anchors.horizontalCenter: parent.horizontalCenter
+
+                // Set width and height
+                width: window.width / 1.5
+                height: window.height / 1.5
+
+                // Initialize with empty source
+                source: ""
+            }
+        }
     }
 
-    RowLayout {
+    // Container for Open/Save Image button
+    Item {
+        id: openCloseItem
         width: parent.width
-        spacing: 20
 
-        // Fill the width of row
-        Item {
-            Layout.fillWidth: true
-        }
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.topMargin: 25
+        anchors.top: parent.top
 
-        // Set up Open Image button
-        Button {
-            id: openImage
+        RowLayout {
+            width: parent.width
+            spacing: 20
 
-            Layout.topMargin: 15
-            onClicked: openFile.open()
-
-            contentItem: Text {
-                text: "Open Image"
-
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
+            // Fill the width of row
+            Item {
+                Layout.fillWidth: true
             }
-        }
 
-        // Set up Save Image button
-        Button {
-            id: saveImage
+            // Set up Open Image button
+            Button {
+                id: openImage
 
-            Layout.topMargin: 15
-            onClicked: saveFile.open()
+                onClicked: openFile.open()
 
-            contentItem: Text {
-                text: "Save Image"
-
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
+                contentItem: Text {
+                    text: "Open Image"
+                }
             }
-        }
 
-        // Fill the width of row
-        Item {
-            Layout.fillWidth: true
+            // Set up Save Image button
+            Button {
+                id: saveImage
+
+                onClicked: saveFile.open()
+
+                contentItem: Text {
+                    text: "Save Image"
+                }
+            }
+
+            // Fill the width of row
+            Item {
+                Layout.fillWidth: true
+            }
         }
     }
+
+
+    // Container for:   Normalize, GrayScale
+    Item {
+        id: operationsItem1
+
+        // Anchors for setting margin
+        anchors.left: parent.left
+        anchors.top: parent.top
+
+        anchors.leftMargin: 15
+        anchors.topMargin: 15
+
+        width: parent.width - imageItem.width
+
+        Column {
+            spacing: 5
+            width: parent.width
+
+            Button {
+                id: normalize
+                text: "Normalize Image"
+
+                onClicked: {
+                    guiOps.applyNormalization()
+
+                    // Update image
+                    mainImage.source = guiOps.updatedImage()
+                }
+            }
+
+            Button {
+                id: grayscale
+                text: "GrayScale Image"
+
+                onClicked: {
+                    guiOps.apply
+                }
+            }
+        }
+
+    }
+
 
 
     // Set up openFile Dialog
@@ -96,6 +161,7 @@ Window {
             // Load the image and set the source directly
             guiOps.loadImage(selectedFile)
 
+            // Update image
             mainImage.source = "data:image/jpeg;base64," + guiOps.getImageData()
         }
     }
