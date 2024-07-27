@@ -124,7 +124,7 @@ bool oilPaintImage(Magick::Image& image, int radius) {
 bool changeBrightness(Magick::Image& image, float factor) {
     try {
         // Change the brightness of image
-        // The values are actually '%' (100 for no change)
+        // The values are actually in '%' (100 for no change)
         image.modulate(factor, 100.0, 100.0);
     }
     catch (Magick::Exception &error_) {
@@ -246,6 +246,32 @@ bool addNoise(Magick::Image& image, MagickCore::NoiseType NoiseType) {
     }
     catch (Magick::Exception &error_) {
         std::cout << "Unable to add noise to image: " << error_.what() << std::endl;
+        return false;
+    }
+
+    return true;
+}
+
+bool thresholdImage(Magick::Image& image, float threshold) {
+    try {
+        // Threshold image
+        image.threshold(threshold);
+    }
+    catch (Magick::Exception &error_) {
+        std::cout << "Unable to threshold image: " << error_.what() << std::endl;
+        return false;
+    }
+
+    return true;
+}
+
+bool edgeImage(Magick::Image& image, float radius) {
+    try {
+        // Edge image
+        image.edge(radius);
+    }
+    catch (Magick::Exception &error_) {
+        std::cout << "Unable to highlight edges: " << error_.what() << std::endl;
         return false;
     }
 

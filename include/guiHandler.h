@@ -67,6 +67,9 @@ public slots:
     // Function to apply noise
     bool applyNoise(const int iNoiseType);
 
+    // Function to apply edge
+    bool applyEdge(const float radius);
+
     // TODO: Contrast
 
 private:

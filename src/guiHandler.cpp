@@ -227,3 +227,12 @@ bool GuiHandler::applyNoise(const int iNoiseType) {
 
     return true;
 }
+
+bool GuiHandler::applyEdge(const float edge) {
+    if (!edgeImage(mainImage, edge)) {
+        qWarning() << "Unable to highlight edge";
+        return false;
+    }
+
+    return true;
+}

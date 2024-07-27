@@ -127,6 +127,21 @@ bool rotateImage(Magick::Image& image, float degrees);
 // Returns true on success and false on failure
 bool addNoise(Magick::Image& image, MagickCore::NoiseType noiseType);
 
+// Threshold image
+//
+// -- Partition image fg and bg
+//
+// Returns true on success and false on failure
+bool thresholdImage(Magick::Image& image, float threshold);
+
+// Edge image
+//
+// -- Highlightes edges in image
+// -- Radius is the radius of pixel neightborhood. 0 -> auto selection
+//
+// Returns true on success and false on failure
+bool edgeImage(Magick::Image& image, float radius);
+
 
 // ---------------------------------- 3 args -----------------------------------
 

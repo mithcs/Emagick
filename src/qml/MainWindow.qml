@@ -358,27 +358,55 @@ Window {
         id: operationsItem2
 
         // Anchors for setting margin
-        anchors.left: parent.left
-        anchors.top: parent.top
+        anchors.left: mainImage.right
+        anchors.right: parent.right
 
-        // 120 seems to be THE NUMBER.
-        anchors.leftMargin: parent.width / 1.20
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
 
         anchors.topMargin: parent.height / 9
         anchors.bottomMargin: parent.height / 9
 
-        // width: (parent.width - imageItem.width) * 0.1 - anchors.leftMargin
+        anchors.rightMargin: parent.width / 50
+        anchors.leftMargin: parent.width / 50
+
+        width: (parent.width - imageItem.width) / 2.2 - anchors.rightMargin
         height: parent.height - anchors.topMargin
-        width: parent.width - anchors.leftMargin
+
 
         Column {
             spacing: parent.height / 50
             width: parent.width
 
-            Button {
-                text: "Normalize Image"
+            SpinBox {
+                id: edgeSpinBox
+
+                from: 1
+                value: 5
+                to: 20
 
                 anchors.horizontalCenter: parent.horizontalCenter
+
+                property real edgeValue: 5
+
+                onValueModified: {
+                    edgeValue = value
+                }
+            }
+
+            Button {
+                id: edge
+
+                text: "Highlight Edges"
+
+                anchors.horizontalCenter: parent.horizontalCenter
+
+                onClicked: {
+                    guiOps.applyEdge(edgeSpinBox.edgeValue)
+
+                    // Update image
+                    mainImage.source = guiOps.updatedImage()
+                }
             }
         }
     }
