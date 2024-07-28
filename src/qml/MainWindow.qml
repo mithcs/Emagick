@@ -358,7 +358,7 @@ Window {
         id: operationsItem2
 
         // Anchors for setting margin
-        anchors.left: mainImage.right
+        // anchors.left: mainImage.right
         anchors.right: parent.right
 
         anchors.top: parent.top
@@ -378,20 +378,33 @@ Window {
             spacing: parent.height / 50
             width: parent.width
 
-            SpinBox {
-                id: edgeSpinBox
+            Slider {
+                id: edgeSlider
 
                 from: 1
-                value: 5
-                to: 20
+                value: 3
+                to: 15
+
+                snapMode: Slider.SnapAlways
+                stepSize: 1
 
                 anchors.horizontalCenter: parent.horizontalCenter
 
                 property real edgeValue: 5
 
-                onValueModified: {
+                onMoved: {
                     edgeValue = value
                 }
+            }
+
+            Text {
+                text: "Edge Value: <b>" + edgeSlider.edgeValue + "</b>"
+
+                anchors.horizontalCenter: parent.horizontalCenter
+
+                font.pointSize: 10
+
+                color: "black"
             }
 
             Button {
@@ -402,12 +415,146 @@ Window {
                 anchors.horizontalCenter: parent.horizontalCenter
 
                 onClicked: {
-                    guiOps.applyEdge(edgeSpinBox.edgeValue)
+                    guiOps.applyEdge(edgeSlider.edgeValue)
 
                     // Update image
                     mainImage.source = guiOps.updatedImage()
                 }
             }
+
+            Slider {
+                id: gammaSlider
+
+                from: 1
+                value: 3
+                to: 10
+
+                snapMode: Slider.SnapAlways
+                stepSize: 0.5
+
+                anchors.horizontalCenter: parent.horizontalCenter
+
+                property real gammaValue: 2.5
+
+                onMoved: {
+                    gammaValue = value
+                }
+            }
+
+            Text {
+                text: "Gamma Value: <b>" + gammaSlider.gammaValue + "</b>"
+
+                anchors.horizontalCenter: parent.horizontalCenter
+
+                font.pointSize: 10
+
+                color: "black"
+            }
+
+            Button {
+                id: gamma
+
+                text: "Change gamma"
+
+                anchors.horizontalCenter: parent.horizontalCenter
+
+                onClicked: {
+                    guiOps.applyGamma(gammaSlider.gammaValue)
+
+                    // Update image
+                    mainImage.source = guiOps.updatedImage()
+                }
+            }
+
+            Slider {
+                id: noiseReductionSlider
+
+                from: 1
+                value: 3
+                to: 10
+
+                snapMode: Slider.SnapAlways
+                stepSize: 0.5
+
+                anchors.horizontalCenter: parent.horizontalCenter
+
+                property real noiseReductionOrder: 3
+
+                onMoved: {
+                    noiseReductionOrder = value
+                }
+            }
+
+            Text {
+                text: "Noise reduction order: <b>" + noiseReductionSlider.noiseReductionOrder + "</b>"
+
+                anchors.horizontalCenter: parent.horizontalCenter
+
+                font.pointSize: 10
+
+                color: "black"
+            }
+
+            Button {
+                id: noiseReduction
+
+                text: "Reduce Noise"
+
+                anchors.horizontalCenter: parent.horizontalCenter
+
+                onClicked: {
+                    guiOps.applyNoiseReduction(noiseReductionSlider.noiseReductionOrder)
+
+                    // Update image
+                    mainImage.source = guiOps.updatedImage()
+                }
+            }
+
+            // TODO: FIX ME
+            Rectangle {
+                width: parent.width / 20
+
+                color: "Lightgray"
+                radius: 2
+                border.color: "darkgrey"
+                border.width: 1
+
+                TextInput {
+                    id: rotateInput
+
+                    Text {
+                        text: "Enter degrees"
+                        color: "#aaa"
+                        visible: !rotateInput.text
+                    }
+
+                    anchors.horizontalCenter: parent.horizontalCenter
+
+                    property real rotateDegrees: 0
+
+                    inputMethodHints: Qt.ImhFormattedNumbersOnly
+
+                    onTextChanged: {
+                        rotateDegrees = rotateInput.text
+                    }
+                }
+            }
+
+            Button {
+                id: rotate
+
+                text: "Rotate Image"
+
+                anchors.horizontalCenter: parent.horizontalCenter
+
+                onClicked: {
+                    guiOps.applyRotation(rotateInput.rotateDegrees)
+
+                    // Update image
+                    mainImage.source = guiOps.updatedImage()
+                }
+            }
+
         }
     }
 

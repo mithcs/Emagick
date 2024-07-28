@@ -70,7 +70,14 @@ public slots:
     // Function to apply edge
     bool applyEdge(const float radius);
 
-    // TODO: Contrast
+    // Function to change gamma
+    bool applyGamma(const float factor);
+
+    // Function to apply noise reduction
+    bool applyNoiseReduction(const float order);
+
+    // Function to apply rotation
+    bool applyRotation(const float degres);
 
 private:
     // Function to convert Magick::Image to QImage format for use in Qt

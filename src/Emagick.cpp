@@ -277,3 +277,16 @@ bool edgeImage(Magick::Image& image, float radius) {
 
     return true;
 }
+
+bool reduceNoise(Magick::Image& image, float order) {
+    try {
+        // Reduce noise
+        image.reduceNoise(order);
+    }
+    catch (Magick::Exception &error_) {
+        std::cout << "Unable to reduce noise: " << error_.what() << std::endl;
+        return false;
+    }
+
+    return true;
+}

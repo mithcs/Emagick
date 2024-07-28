@@ -4,6 +4,7 @@
 #include <Magick++.h>
 
 // -----------------------------------------------------------------------------
+// TODO: Contrast
 
 // Reads the image from imagePath parameter
 // Returns true on success and false on failure
@@ -15,6 +16,7 @@ bool writeImage(Magick::Image& image, std::string basename);
 
 // -----------------------------------------------------------------------------
 // ----------------------------------- 1 arg -----------------------------------
+// -----------------------------------------------------------------------------
 
 // Despeckle the image
 //
@@ -90,7 +92,10 @@ bool normalizeImage(Magick::Image& image);
 // Returns true on success and false on failure
 bool trimImage(Magick::Image& image);
 
+
+// -----------------------------------------------------------------------------
 // ---------------------------------- 2 args -----------------------------------
+// -----------------------------------------------------------------------------
 
 // Change the brightness of image according to factor(in %)
 //
@@ -142,11 +147,21 @@ bool thresholdImage(Magick::Image& image, float threshold);
 // Returns true on success and false on failure
 bool edgeImage(Magick::Image& image, float radius);
 
+// Reduce Noise
+//
+// -- Reduce noise in image using peak noise elimination filter
+//
+// Returns true on success and false on failure
+bool reduceNoise(Magick::Image& image, float order);
 
+// -----------------------------------------------------------------------------
 // ---------------------------------- 3 args -----------------------------------
+// -----------------------------------------------------------------------------
 
 
+// -----------------------------------------------------------------------------
 // ---------------------------------- 3+ args ----------------------------------
+// -----------------------------------------------------------------------------
 
 // Crops the image according to given geometry
 //

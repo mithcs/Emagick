@@ -236,3 +236,30 @@ bool GuiHandler::applyEdge(const float edge) {
 
     return true;
 }
+
+bool GuiHandler::applyGamma(const float factor) {
+    if (!changeGamma(mainImage, factor)) {
+        qWarning() << "Unable to change gamma";
+        return false;
+    }
+
+    return true;
+}
+
+bool GuiHandler::applyNoiseReduction(const float order) {
+    if (!reduceNoise(mainImage, order)) {
+        qWarning() << "Unable to reduce noise";
+        return false;
+    }
+
+    return true;
+}
+
+bool GuiHandler::applyRotation(const float degres) {
+    if (!rotateImage(mainImage, degres)) {
+        qWarning() << "Unable to rotate image";
+        return false;
+    }
+
+    return true;
+}
