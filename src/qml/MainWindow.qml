@@ -106,8 +106,7 @@ Window {
 
     // Container for left side operational buttons & stuff:
     //  Normalize, Grayscale, Negate, Despeckle, Equalize,
-    //  Erase, Flip, Flop, Magnify, Minify, Trim, Change Brightness,
-    //  Add Noise
+    //  Erase, Flip, Flop, Magnify, Minify, Trim, Add noise
     Item {
         id: operationsItem1
 
@@ -282,47 +281,6 @@ Window {
             }
 
 
-            Slider {
-                id: brightnessSlider
-                width: parent.width
-
-                from: 0
-                value: 100
-                to: 200
-
-                property real brightnessFactor: 100
-
-                snapMode: Slider.SnapAlways
-                stepSize: 5
-
-                onMoved: {
-                    brightnessSlider.brightnessFactor = value
-                }
-            }
-
-            Button {
-                id: brightness
-                text: "Change Brightness"
-
-                anchors.horizontalCenter: parent.horizontalCenter
-
-                onClicked: {
-                    guiOps.applyBrightness(brightnessSlider.brightnessFactor)
-
-                    // Update image
-                    mainImage.source = guiOps.updatedImage()
-                }
-            }
-
-            Text {
-                text: "Brightness Factor: <b>" + brightnessSlider.brightnessFactor + "</b>"
-
-                anchors.horizontalCenter: parent.horizontalCenter
-
-                font.pointSize: 10
-
-                color: "black"
-            }
 
             ComboBox {
                 id: noiseType
@@ -385,6 +343,8 @@ Window {
                 value: 3
                 to: 15
 
+                width: parent.width
+
                 snapMode: Slider.SnapAlways
                 stepSize: 1
 
@@ -428,6 +388,8 @@ Window {
                 from: 1
                 value: 3
                 to: 10
+
+                width: parent.width
 
                 snapMode: Slider.SnapAlways
                 stepSize: 0.5
@@ -473,6 +435,8 @@ Window {
                 value: 3
                 to: 10
 
+                width: parent.width
+
                 snapMode: Slider.SnapAlways
                 stepSize: 0.5
 
@@ -510,34 +474,45 @@ Window {
                 }
             }
 
-            // TODO: FIX ME
-            Rectangle {
-                width: parent.width / 20
+            Dial {
+                id: rotateDial
 
-                color: "Lightgray"
-                radius: 2
-                border.color: "darkgrey"
-                border.width: 1
+                from: 0
+                value: 0
+                to: 360
 
-                TextInput {
-                    id: rotateInput
+                stepSize: 1
 
-                    Text {
-                        text: "Enter degrees"
-                        color: "#aaa"
-                        visible: !rotateInput.text
-                    }
+                width: rotate.width * 1
+                height: rotate.height * 3
 
-                    anchors.horizontalCenter: parent.horizontalCenter
+                property int rotateDegrees: 0
 
-                    property real rotateDegrees: 0
+                wrap: true
 
-                    inputMethodHints: Qt.ImhFormattedNumbersOnly
-
-                    onTextChanged: {
-                        rotateDegrees = rotateInput.text
+                onValueChanged: {
+                    if (value == 360) {
+                        value = 0
                     }
                 }
+
+                anchors.horizontalCenter: parent.horizontalCenter
+
+                onMoved: {
+                    rotateDegrees = rotateDial.value
+                }
+            }
+
+            Text {
+                id: rotateText
+
+                text: "<b>" + rotateDial.rotateDegrees + "</b>: Degrees"
+
+                anchors.horizontalCenter: parent.horizontalCenter
+
+                font.pointSize: 10
+
+                color: "black"
             }
 
             Button {
@@ -548,13 +523,123 @@ Window {
                 anchors.horizontalCenter: parent.horizontalCenter
 
                 onClicked: {
-                    guiOps.applyRotation(rotateInput.rotateDegrees)
+                    guiOps.applyRotation(rotateDial.rotateDegrees)
+
+                    // Update image
+                    mainImage.source = guiOps.updatedImage()
+                }
+            }
+        }
+    }
+
+
+    Item {
+        id: operationsItem3
+
+        width: parent.width
+
+        anchors.horizontalCenter: parent.horizontalCenter
+
+        anchors.topMargin: parent.height / 15
+
+        anchors.top: imageItem.bottom
+        anchors.bottom: parent.bottom
+
+        RowLayout {
+            width: parent.width
+            spacing: parent.width / 40
+
+            // Fill the width of row
+            Item {
+                Layout.fillWidth: true
+            }
+
+            Column {
+                width: parent.width
+
+                spacing: parent.height / 50
+
+                Slider {
+                    id: brightnessSlider
+
+                    from: -100
+                    value: 0
+                    to: 100
+
+                    anchors.horizontalCenter: parent.horizontalCenter
+
+                    property real brightnessFactor: 0
+
+                    snapMode: Slider.SnapAlways
+                    stepSize: 5
+
+                    onMoved: {
+                        brightnessSlider.brightnessFactor = value
+                    }
+                }
+
+                Text {
+                    text: "Brightness Factor: <b>" + brightnessSlider.brightnessFactor + "</b>"
+
+                    anchors.horizontalCenter: parent.horizontalCenter
+
+                    font.pointSize: 10
+
+                    color: "black"
+                }
+            }
+
+            Button {
+                id: contrastAndBrightness
+                text: "Change Brightness/Contrast"
+
+                onClicked: {
+                    guiOps.applyBrightnessContrast(brightnessSlider.brightnessFactor, contrastSlider.contrastFactor)
 
                     // Update image
                     mainImage.source = guiOps.updatedImage()
                 }
             }
 
+            Column {
+                width: parent.width
+
+                spacing: parent.height / 40
+
+                Slider {
+                    id: contrastSlider
+
+                    from: -100
+                    value: 0
+                    to: 100
+
+                    anchors.horizontalCenter: parent.horizontalCenter
+
+                    property real contrastFactor: 0
+
+                    snapMode: Slider.SnapAlways
+                    stepSize: 5
+
+                    onMoved: {
+                        contrastSlider.contrastFactor = value
+                    }
+                }
+
+                Text {
+                    text: "Contrast Factor: <b>" + contrastSlider.contrastFactor + "</b>"
+
+                    anchors.horizontalCenter: parent.horizontalCenter
+
+                    font.pointSize: 10
+
+                    color: "black"
+                }
+            }
+
+            // Fill the width of row
+            Item {
+                Layout.fillWidth: true
+            }
         }
     }
 

@@ -61,9 +61,6 @@ public slots:
     // Function to trim image
     bool applyTrim();
 
-    // Function to change brightness
-    bool applyBrightness(const float factor);
-
     // Function to apply noise
     bool applyNoise(const int iNoiseType);
 
@@ -78,6 +75,9 @@ public slots:
 
     // Function to apply rotation
     bool applyRotation(const float degres);
+
+    // Function to change brightness and/or contrast
+    bool applyBrightnessContrast(const float brightness, const float contrast);
 
 private:
     // Function to convert Magick::Image to QImage format for use in Qt

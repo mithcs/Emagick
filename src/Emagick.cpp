@@ -121,20 +121,6 @@ bool oilPaintImage(Magick::Image& image, int radius) {
     return true;
 }
 
-bool changeBrightness(Magick::Image& image, float factor) {
-    try {
-        // Change the brightness of image
-        // The values are actually in '%' (100 for no change)
-        image.modulate(factor, 100.0, 100.0);
-    }
-    catch (Magick::Exception &error_) {
-        std::cout << "Unable to change brightness of the image: " << error_.what() << std::endl;
-        return false;
-    }
-
-    return true;
-}
-
 bool despeckleImage(Magick::Image& image) {
     try {
         // Despeckle the image
@@ -285,6 +271,19 @@ bool reduceNoise(Magick::Image& image, float order) {
     }
     catch (Magick::Exception &error_) {
         std::cout << "Unable to reduce noise: " << error_.what() << std::endl;
+        return false;
+    }
+
+    return true;
+}
+
+bool changeBrightnessContrast(Magick::Image& image, double brightness, double contrast) {
+    try {
+        // Change brightness and/or contrast
+        image.brightnessContrast(brightness, contrast);
+    }
+    catch (Magick::Exception &error_) {
+        std::cout << "Unable to change brightness/contrast: " << error_.what() << std::endl;
         return false;
     }
 

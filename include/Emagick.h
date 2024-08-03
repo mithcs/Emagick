@@ -97,13 +97,6 @@ bool trimImage(Magick::Image& image);
 // ---------------------------------- 2 args -----------------------------------
 // -----------------------------------------------------------------------------
 
-// Change the brightness of image according to factor(in %)
-//
-// -- Uses modulate under-the-hood -> modulate(brightness, saturation, hue), where 100% is default
-//
-// Returns true on success and false on failure
-bool changeBrightness(Magick::Image& image, float factor);
-
 // Gamma correct image
 //
 // -- Changes the gamma of image according to factor
@@ -154,10 +147,17 @@ bool edgeImage(Magick::Image& image, float radius);
 // Returns true on success and false on failure
 bool reduceNoise(Magick::Image& image, float order);
 
+
 // -----------------------------------------------------------------------------
 // ---------------------------------- 3 args -----------------------------------
 // -----------------------------------------------------------------------------
 
+// Change Brightness / Contrast
+//
+// -- Changes the Brightness and/or Contrast of image (in %)
+//
+// Returns true on success and false on failure
+bool changeBrightnessContrast(Magick::Image& image, double brightness, double contrast);
 
 // -----------------------------------------------------------------------------
 // ---------------------------------- 3+ args ----------------------------------

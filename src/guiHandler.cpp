@@ -192,15 +192,6 @@ bool GuiHandler::applyTrim() {
     return true;
 }
 
-bool GuiHandler::applyBrightness(const float factor) {
-    if (!changeBrightness(mainImage, factor)) {
-        qWarning() << "Unable to change brightness";
-        return false;
-    }
-
-    return true;
-}
-
 bool GuiHandler::applyNoise(const int iNoiseType) {
     Magick::NoiseType noiseType;
 
@@ -258,6 +249,15 @@ bool GuiHandler::applyNoiseReduction(const float order) {
 bool GuiHandler::applyRotation(const float degres) {
     if (!rotateImage(mainImage, degres)) {
         qWarning() << "Unable to rotate image";
+        return false;
+    }
+
+    return true;
+}
+
+bool GuiHandler::applyBrightnessContrast(const float brightness, const float contrast) {
+    if (!changeBrightnessContrast(mainImage, brightness, contrast)) {
+        qWarning() << "Unable to change brightness/contrast";
         return false;
     }
 
