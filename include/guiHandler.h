@@ -79,6 +79,9 @@ public slots:
     // Function to change brightness and/or contrast
     bool applyBrightnessContrast(const float brightness, const float contrast);
 
+    // Function to crop image
+    bool applyCrop(const int width, const int height, const int offsetx, const int offsety);
+
 private:
     // Function to convert Magick::Image to QImage format for use in Qt
     QImage convertToQImage();

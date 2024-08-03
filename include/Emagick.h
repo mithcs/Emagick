@@ -168,7 +168,7 @@ bool changeBrightnessContrast(Magick::Image& image, double brightness, double co
 // -- Crop subregion of original image
 //
 // Returns true on success and false on failure
-bool cropImage(Magick::Image& image, int x, int y, int offsetx, int offsety);
+bool cropImage(Magick::Image& image, int width, int height, int offsetx, int offsety);
 
 
 // -----------------------------------------------------------------------------

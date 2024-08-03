@@ -29,10 +29,10 @@ bool writeImage(Magick::Image& image, std::string baseName) {
     return true;
 }
 
-bool cropImage(Magick::Image& image, int x, int y, int offsetx, int offsety) {
+bool cropImage(Magick::Image& image, int width, int height, int offsetx, int offsety) {
     try {
         // Crop the image according the given geometry
-        image.crop(Magick::Geometry(x, y, offsetx, offsety));
+        image.crop(Magick::Geometry(width, height, offsetx, offsety));
     }
     catch (Magick::Exception &error_) {
         std::cout << "Unable to crop image: " << error_.what() << std::endl;

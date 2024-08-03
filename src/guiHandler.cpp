@@ -263,3 +263,20 @@ bool GuiHandler::applyBrightnessContrast(const float brightness, const float con
 
     return true;
 }
+
+bool GuiHandler::applyCrop(const int width, const int height, const int offsetx, const int offsety) {
+    if (width <= 0 || height <= 0 || offsetx < 0 || offsety < 0 ||
+            offsetx + width > mainImage.columns() || offsety + height > mainImage.rows()) {
+        qWarning() << "Invalid crop parameters";
+        return false;
+    }
+
+    qDebug() << "applyCrop called with width:" << width << " height:" << height << " offsetx:" << offsetx << " offsety:" << offsety;
+
+    if (!cropImage(mainImage, width, height, offsetx, offsety)) {
+        qWarning() << "Unable to crop image";
+        return false;
+    }
+
+    return true;
+}
