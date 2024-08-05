@@ -4,7 +4,6 @@ import QtQuick.Controls
 import QtQuick.Dialogs
 import QtQuick.Layouts
 
-
 // Window type for simple GUI
 Window {
     // Set id
@@ -21,124 +20,47 @@ Window {
     title: "Emagick"
 
     // Container for image
-Item {
-    id: imageItem
+    Item {
+        id: imageItem
 
-    width: window.width / 1.5
-    height: window.height / 1.5
+        width: window.width / 1.5
+        height: window.height / 1.5
 
-    // Center the item
-    anchors.centerIn: parent
-    anchors.verticalCenterOffset: -45
+        // Center the item
+        anchors.centerIn: parent
+        anchors.verticalCenterOffset: -45
 
-    // Column for Image
-    Column {
-        width: parent.width
+        // Column for Image
+        Column {
+            width: parent.width
 
-        // Space between text and image
-        spacing: 3
+            // Space between text and image
+            spacing: 3
 
-        Text {
-            id: nameAndRes
-            text: "IMAGE NAME + RESOLUTION HERE"
-            font.italic: true
-            color: "blue"
+            Text {
+                id: nameAndRes
+                text: "IMAGE NAME + RESOLUTION HERE"
+                font.italic: true
+                color: "blue"
 
-            anchors.horizontalCenter: parent.horizontalCenter
-        }
-
-        Item {
-            width: mainImage.width
-            height: mainImage.height
-            anchors.horizontalCenter: parent.horizontalCenter
+                anchors.horizontalCenter: parent.horizontalCenter
+            }
 
             Image {
                 id: mainImage
                 fillMode: Image.PreserveAspectFit
+
                 anchors.horizontalCenter: parent.horizontalCenter
+
+                // Set width and height
                 width: window.width / 1.5
                 height: window.height / 1.5
+
+                // Initialize with empty source
                 source: ""
-            }
-
-            Rectangle {
-                id: selectionRectangle
-                color: "transparent"
-                border.color: "blue"
-                border.width: 2
-                visible: false
-                width: 0
-                height: 0
-                x: 0
-                y: 0
-
-                MouseArea {
-                    id: selectionMouseArea
-                    anchors.fill: parent
-                    cursorShape: Qt.CrossCursor
-
-                    onPressed: {
-                        if (cropButton.croppingMode) {
-                            // Initialize the rectangle from the current mouse position
-                            startX = mouseX
-                            startY = mouseY
-                            selectionRectangle.x = startX
-                            selectionRectangle.y = startY
-                            selectionRectangle.width = 0
-                            selectionRectangle.height = 0
-                            selectionRectangle.visible = true
-
-                            // Log starting position
-                            console.log("Started at: ", startX, startY);
-                        }
-                    }
-
-                    onPositionChanged: {
-                        if (cropButton.croppingMode && selectionRectangle.visible) {
-                            // Calculate rectangle properties based on mouse position
-                            var currentX = mouseX
-                            var currentY = mouseY
-
-                            selectionRectangle.x = Math.min(startX, currentX)
-                            selectionRectangle.y = Math.min(startY, currentY)
-                            selectionRectangle.width = Math.abs(currentX - startX)
-                            selectionRectangle.height = Math.abs(currentY - startY)
-
-                            console.log("Position Changed at: ", currentX, currentY, "Width, Height -> ", selectionRectangle.width, selectionRectangle.height);
-                        }
-                    }
-
-                    onReleased: {
-                        if (cropButton.croppingMode) {
-                            cropButton.croppingMode = false
-                            console.log("Crop area geometry: x=" + selectionRectangle.x + ", y=" + selectionRectangle.y + ", width=" + selectionRectangle.width + ", height=" + selectionRectangle.height)
-
-                            // Call the function to crop image using these dimensions
-                            if (guiOps.applyCrop(selectionRectangle.width, selectionRectangle.height, selectionRectangle.x, selectionRectangle.y)) {
-                                console.log("Cropping applied, updating image source");
-                                // Update image source only if cropping was successful
-                                mainImage.source = guiOps.updatedImage()
-                            } else {
-                                console.log("Cropping failed, no update to image source");
-                            }
-
-                            // Reset all the properties to 0/false
-                            selectionRectangle.visible = false
-                            selectionRectangle.x = 0
-                            selectionRectangle.y = 0
-                            selectionRectangle.width = 0
-                            selectionRectangle.height = 0
-                        }
-                    }
-
-                    // Properties to store initial mouse press position
-                    property int startX: 0
-                    property int startY: 0
-                }
             }
         }
     }
-}
 
     // Container for Open/Save Image button
     Item {
@@ -712,28 +634,67 @@ Item {
 
                     color: "black"
                 }
+
             }
 
             Button {
-                id: cropButton
+                id: crop
                 text: "Crop Image"
 
-                property bool croppingMode: false
-
                 onClicked: {
-                    croppingMode = true
-                    selectionRectangle.visible = false // Hide initially; will show on mouse press
                 }
             }
+
+            Rectangle {
+                id: selection
+                // anchors.fill: parent
+                color: "lightgray"
+
+                // width: 0
+                // height: 0
+
+                Rectangle {
+                    id: selectionRect
+                    color: "transparent"
+
+                    border.color: "blue"
+                    border.width: 2
+                    visible: false
+                }
+            }
+
+            MouseArea {
+                id: mouseArea
+                // anchors.fill: parent
+                // drop.target: selectionRect
+
+                onPressed: {
+                    selectionRect.visible = true
+                    selectionRect.x = mouseX
+                    selectionRect.y = mouseY
+                    selectionRect.width = 0
+                    selectionRect.height = 0
+                }
+
+                onPositionChanged: {
+                    if (mouse.buttons == Qt.LeftButton) {
+                        selectionRect.width = mouseX - selectionRect.x
+                        selectionRect.height = mouseY - selectionRect.y
+                    }
+                }
+
+                onReleased: {
+                    console.log("Width: " + selectionRect.width, "Height: " + selectionRect.height, "X: " + selectionRect.x, "Y: " + selectionRect.Y)
+                }
+            }
+
 
             // Fill the width of row
             Item {
                 Layout.fillWidth: true
             }
         }
-
     }
-
 
 
     // Set up openFile Dialog
