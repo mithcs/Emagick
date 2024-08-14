@@ -16,71 +16,74 @@ public:
 
 public slots:
     // Function to get the image data as a Base64 encoded string
-    QString getImageData();
+    Q_INVOKABLE QString getImageData();
 
     // Function to update image
-    QString updatedImage();
+    Q_INVOKABLE QString updatedImage();
 
 
     // Function to load an image from a file path
-    void loadImage(const QString &filePath);
+    Q_INVOKABLE void loadImage(const QString &filePath);
 
     // Function to save the current image to a file
-    void saveImage(const QString &filePath);
+    Q_INVOKABLE void saveImage(const QString &filePath);
 
     // Function to normalize image
-    bool applyNormalization();
+    Q_INVOKABLE bool applyNormalization();
 
     // Function to grayscale image
-    bool applyGrayscale();
+    Q_INVOKABLE bool applyGrayscale();
 
     // Function to negate colors
-    bool applyNegation();
+    Q_INVOKABLE bool applyNegation();
 
     // Function to despeckle image
-    bool applyDespeckle();
+    Q_INVOKABLE bool applyDespeckle();
 
     // Function to equalize image
-    bool applyEqualization();
+    Q_INVOKABLE bool applyEqualization();
 
     // Function to erase image
-    bool applyErasure();
+    Q_INVOKABLE bool applyErasure();
 
     // Function to flip image
-    bool applyFlip();
+    Q_INVOKABLE bool applyFlip();
 
     // Function to flip image
-    bool applyFlop();
+    Q_INVOKABLE bool applyFlop();
 
     // Function to magnify image
-    bool applyMagnification();
+    Q_INVOKABLE bool applyMagnification();
 
     // Function to minify image
-    bool applyMinification();
+    Q_INVOKABLE bool applyMinification();
 
     // Function to trim image
-    bool applyTrim();
+    Q_INVOKABLE bool applyTrim();
 
     // Function to apply noise
-    bool applyNoise(const int iNoiseType);
+    Q_INVOKABLE bool applyNoise(const int iNoiseType);
 
     // Function to apply edge
-    bool applyEdge(const float radius);
+    Q_INVOKABLE bool applyEdge(const float radius);
 
     // Function to change gamma
-    bool applyGamma(const float factor);
+    Q_INVOKABLE bool applyGamma(const float factor);
 
     // Function to apply noise reduction
-    bool applyNoiseReduction(const float order);
+    Q_INVOKABLE bool applyNoiseReduction(const float order);
 
     // Function to apply rotation
-    bool applyRotation(const float degres);
+    Q_INVOKABLE bool applyRotation(const float degres);
 
     // Function to change brightness and/or contrast
-    bool applyBrightnessContrast(const float brightness, const float contrast);
+    Q_INVOKABLE bool applyBrightnessContrast(const float brightness, const float contrast);
 
     // Function to crop image
-    bool applyCrop(const int width, const int height, const int offsetx, const int offsety);
+    Q_INVOKABLE bool applyCrop(const int width, const int height, const int offsetx, const int offsety);
+
+    // Function to get file name
+    Q_INVOKABLE QString getFileName();
 
 private:
     // Function to convert Magick::Image to QImage format for use in Qt

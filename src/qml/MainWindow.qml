@@ -1,6 +1,7 @@
-import QtCore
+import QtCore                       // For StandardPaths
 import QtQuick
 import QtQuick.Controls
+// import QtQuick.Controls.Material
 import QtQuick.Dialogs
 import QtQuick.Layouts
 
@@ -9,12 +10,16 @@ Window {
     // Set id
     id: window
 
+    // Theme
+    // Material.theme: Material.Light
+    // Material.accent: Material.Orange
+
     // Make it visible
     visible: true
 
     // Set up geometry
-    width: Screen.width / 1.3
-    height: Screen.height / 1.3
+    width: 1280
+    height: 720
 
     // Set the title of window
     title: "Emagick"
@@ -23,8 +28,8 @@ Window {
     Item {
         id: imageItem
 
-        width: window.width / 1.5
-        height: window.height / 1.5
+        width: 960
+        height: 540
 
         // Center the item
         anchors.centerIn: parent
@@ -39,7 +44,10 @@ Window {
 
             Text {
                 id: nameAndRes
-                text: "IMAGE NAME + RESOLUTION HERE"
+
+                property var imageName: "Select File"
+                
+                text: imageName + " + RESOLUTION HERE"
                 font.italic: true
                 color: "blue"
 
@@ -53,8 +61,8 @@ Window {
                 anchors.horizontalCenter: parent.horizontalCenter
 
                 // Set width and height
-                width: window.width / 1.5
-                height: window.height / 1.5
+                width: 960
+                height: 540
 
                 // Initialize with empty source
                 source: ""
@@ -65,7 +73,8 @@ Window {
     // Container for Open/Save Image button
     Item {
         id: openCloseItem
-        width: parent.width
+        width: 200
+        height: 50
 
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.topMargin: 25
@@ -73,7 +82,7 @@ Window {
 
         RowLayout {
             width: parent.width
-            spacing: parent.width / 40
+            spacing: 20
 
             // Fill the width of row
             Item {
@@ -85,7 +94,10 @@ Window {
                 id: openImage
                 text: "Open Image"
 
-                onClicked: openFile.open()
+                onClicked: {
+                    openFile.open()
+                    nameAndRes.imageName = guiOps.getFileName()
+                }
             }
 
             // Set up Save Image button
@@ -114,16 +126,17 @@ Window {
         anchors.left: parent.left
         anchors.top: parent.top
 
-        anchors.leftMargin: parent.width / 50
+        anchors.leftMargin: 20
 
-        anchors.topMargin: parent.height / 9
-        anchors.bottomMargin: parent.height / 9
+        anchors.topMargin: 60
+        anchors.bottomMargin: 60
 
-        width: (parent.width - imageItem.width) / 2.2 - anchors.leftMargin
-        height: parent.height - anchors.topMargin
+
+        width: 200
+        height: parent.height - anchors.topMargin - anchors.bottomMargin
 
         Column {
-            spacing: parent.height / 50
+            spacing: 10
             width: parent.width
 
             Button {
@@ -316,24 +329,23 @@ Window {
         id: operationsItem2
 
         // Anchors for setting margin
-        // anchors.left: mainImage.right
         anchors.right: parent.right
-
         anchors.top: parent.top
         anchors.bottom: parent.bottom
 
-        anchors.topMargin: parent.height / 9
-        anchors.bottomMargin: parent.height / 9
+        anchors.rightMargin: 20
+        anchors.leftMargin: 20
 
-        anchors.rightMargin: parent.width / 50
-        anchors.leftMargin: parent.width / 50
+        anchors.topMargin: 60
+        anchors.bottomMargin: 60
 
-        width: (parent.width - imageItem.width) / 2.2 - anchors.rightMargin
-        height: parent.height - anchors.topMargin
+
+        width: 200
+        height: parent.height - anchors.topMargin - anchors.bottomMargin
 
 
         Column {
-            spacing: parent.height / 50
+            spacing: 10
             width: parent.width
 
             Slider {
@@ -540,14 +552,14 @@ Window {
 
         anchors.horizontalCenter: parent.horizontalCenter
 
-        anchors.topMargin: parent.height / 15
+        anchors.topMargin: 48
 
         anchors.top: imageItem.bottom
         anchors.bottom: parent.bottom
 
         RowLayout {
             width: parent.width
-            spacing: parent.width / 40
+            spacing: 20
 
             // Fill the width of row
             Item {
@@ -555,9 +567,9 @@ Window {
             }
 
             Column {
-                width: parent.width
+                width: 250
 
-                spacing: parent.height / 50
+                spacing: 10
 
                 Slider {
                     id: brightnessSlider
@@ -602,9 +614,8 @@ Window {
             }
 
             Column {
-                width: parent.width
-
-                spacing: parent.height / 40
+                width: 250
+                spacing: 10
 
                 Slider {
                     id: contrastSlider
@@ -636,58 +647,6 @@ Window {
                 }
 
             }
-
-            Button {
-                id: crop
-                text: "Crop Image"
-
-                onClicked: {
-                }
-            }
-
-            Rectangle {
-                id: selection
-                // anchors.fill: parent
-                color: "lightgray"
-
-                // width: 0
-                // height: 0
-
-                Rectangle {
-                    id: selectionRect
-                    color: "transparent"
-
-                    border.color: "blue"
-                    border.width: 2
-                    visible: false
-                }
-            }
-
-            MouseArea {
-                id: mouseArea
-                // anchors.fill: parent
-                // drop.target: selectionRect
-
-                onPressed: {
-                    selectionRect.visible = true
-                    selectionRect.x = mouseX
-                    selectionRect.y = mouseY
-                    selectionRect.width = 0
-                    selectionRect.height = 0
-                }
-
-                onPositionChanged: {
-                    if (mouse.buttons == Qt.LeftButton) {
-                        selectionRect.width = mouseX - selectionRect.x
-                        selectionRect.height = mouseY - selectionRect.y
-                    }
-                }
-
-                onReleased: {
-                    console.log("Width: " + selectionRect.width, "Height: " + selectionRect.height, "X: " + selectionRect.x, "Y: " + selectionRect.Y)
-                }
-            }
-
 
             // Fill the width of row
             Item {

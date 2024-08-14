@@ -3,6 +3,7 @@
 #include <QImage>
 #include <QUrl>
 #include <QImageWriter>
+#include <qlogging.h>
 
 #include "guiHandler.h"
 #include "Emagick.h"
@@ -11,7 +12,6 @@
 GuiHandler::GuiHandler(QObject *parent) : QObject(parent) {}
 
 
-// ##############################################
 QString GuiHandler::getImageData() {
     if (image.isNull()) {
         // If the image is not loaded, return an empty string
@@ -64,9 +64,6 @@ QString GuiHandler::updatedImage() {
 
     return "data:image/jpeg;base64," + getImageData();
 }
-
-
-// ######################################################################
 
 void GuiHandler::loadImage(const QString &filePath) {
     try {
@@ -279,4 +276,15 @@ bool GuiHandler::applyCrop(const int width, const int height, const int offsetx,
     }
 
     return true;
+}
+
+QString GuiHandler::getFileName() {
+    QString fileName{};
+
+    fileName = QString::fromStdString(getBaseFileName(mainImage));
+
+    if (fileName == "")
+        qWarning() << "Unable to get filename";
+
+    return fileName;
 }

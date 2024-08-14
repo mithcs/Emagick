@@ -147,6 +147,9 @@ bool edgeImage(Magick::Image& image, float radius);
 // Returns true on success and false on failure
 bool reduceNoise(Magick::Image& image, float order);
 
+// TODO: Add me
+std::string getBaseFileName(Magick::Image& image);
+
 
 // -----------------------------------------------------------------------------
 // ---------------------------------- 3 args -----------------------------------

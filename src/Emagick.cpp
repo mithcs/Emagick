@@ -289,3 +289,14 @@ bool changeBrightnessContrast(Magick::Image& image, double brightness, double co
 
     return true;
 }
+
+std::string getBaseFileName(Magick::Image& image) {
+    try {
+        // Return file name
+        return image.baseFilename();
+    }
+    catch (Magick::Exception &error_) {
+        std::cout << "Unable to get base file name: " << error_.what() << std::endl;
+        return "";
+    }
+}
