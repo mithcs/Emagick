@@ -16,11 +16,13 @@ int main(int argc, char **argv) {
     // Initialize ImageMagick
     Magick::InitializeMagick(*argv);
 
+    // Turned off as material theme doesn't quite fit with this
+    //
     // Set QT_QUICK_BACKEND to 'software'
-    int result = setenv("QT_QUICK_BACKEND", "software", 1);
-
-    if (result == -1)
-        std::cout << "Unable to set QT_QUICK_BACKEND to software: %d" << errno << std::endl;
+    // int result = setenv("QT_QUICK_BACKEND", "software", 1);
+    // if (result == -1)
+    //     std::cout << "Unable to set QT_QUICK_BACKEND to software: %d" << errno << std::endl;
+    //
 
     // Create an instance of GuiHandler
     GuiHandler guiOps;

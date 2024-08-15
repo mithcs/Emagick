@@ -1,7 +1,7 @@
 import QtCore                       // For StandardPaths
 import QtQuick
 import QtQuick.Controls
-// import QtQuick.Controls.Material
+import QtQuick.Controls.Material
 import QtQuick.Dialogs
 import QtQuick.Layouts
 
@@ -10,46 +10,53 @@ Window {
     // Set id
     id: window
 
-    // Theme
-    // Material.theme: Material.Light
-    // Material.accent: Material.Orange
-
     // Make it visible
     visible: true
 
-    // Set up geometry
-    width: 1280
-    height: 720
-
     // Set the title of window
     title: "Emagick"
+
+    // Set theme and color
+    Material.theme: Material.Dark
+    Material.accent: Material.DeepPurple
+    color: "#202020"
+
+    // Set up width and height
+    width: Screen.width / 1.3
+    height: Screen.height / 1.3
+
+    // Global properties
+    property string textColor: "white"
 
     // Container for image
     Item {
         id: imageItem
 
-        width: 960
-        height: 540
+        width: window.width / 1.3
+        height: window.height / 1.3
 
         // Center the item
         anchors.centerIn: parent
-        anchors.verticalCenterOffset: -45
+        // anchors.verticalCenterOffset: -45
 
         // Column for Image
         Column {
+            id: imageCol
+
             width: parent.width
+            height: parent.height
 
             // Space between text and image
-            spacing: 3
+            spacing: 1
 
             Text {
                 id: nameAndRes
 
-                property var imageName: "Select File"
+                // property var imageName: "Select File"
                 
-                text: imageName + " + RESOLUTION HERE"
+                text: "IMAGE NAME" + " + RESOLUTION HERE"
                 font.italic: true
-                color: "blue"
+                color: "steelblue"
 
                 anchors.horizontalCenter: parent.horizontalCenter
             }
@@ -61,8 +68,8 @@ Window {
                 anchors.horizontalCenter: parent.horizontalCenter
 
                 // Set width and height
-                width: 960
-                height: 540
+                width: imageCol.width / 1.2
+                height: imageCol.height / 1.2
 
                 // Initialize with empty source
                 source: ""
@@ -73,16 +80,17 @@ Window {
     // Container for Open/Save Image button
     Item {
         id: openCloseItem
-        width: 200
-        height: 50
 
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.topMargin: 25
+
+        anchors.topMargin: window.height / 30
+
         anchors.top: parent.top
+        anchors.left: parent.left
 
         RowLayout {
-            width: parent.width
-            spacing: 20
+            width: openCloseItem.width
+            spacing: window.width / 30
 
             // Fill the width of row
             Item {
@@ -91,12 +99,12 @@ Window {
 
             // Set up Open Image button
             Button {
-                id: openImage
+                // id: openImage
                 text: "Open Image"
 
                 onClicked: {
                     openFile.open()
-                    nameAndRes.imageName = guiOps.getFileName()
+                    // nameAndRes.imageName = guiOps.getFileName()
                 }
             }
 
@@ -122,22 +130,21 @@ Window {
     Item {
         id: operationsItem1
 
-        // Anchors for setting margin
+        // Anchors
         anchors.left: parent.left
         anchors.top: parent.top
 
-        anchors.leftMargin: 20
+        width: (window.width - imageItem.width) / 2
+        height: window.height
 
-        anchors.topMargin: 60
-        anchors.bottomMargin: 60
-
-
-        width: 200
-        height: parent.height - anchors.topMargin - anchors.bottomMargin
+        // Margins
+        anchors.leftMargin: width / 4
+        anchors.topMargin: height / 15
+        anchors.bottomMargin: height / 15
 
         Column {
-            spacing: 10
-            width: parent.width
+            spacing: 5
+            width: operationsItem1.width
 
             Button {
                 id: normalize
@@ -328,25 +335,22 @@ Window {
     Item {
         id: operationsItem2
 
-        // Anchors for setting margin
+        // Anchors
         anchors.right: parent.right
         anchors.top: parent.top
-        anchors.bottom: parent.bottom
 
-        anchors.rightMargin: 20
-        anchors.leftMargin: 20
+        width: (window.width - imageItem.width) / 2
+        height: window.height
 
-        anchors.topMargin: 60
-        anchors.bottomMargin: 60
-
-
-        width: 200
-        height: parent.height - anchors.topMargin - anchors.bottomMargin
+        // Margins
+        anchors.rightMargin: width / 4
+        anchors.topMargin: height / 15
+        anchors.bottomMargin: height / 15
 
 
         Column {
-            spacing: 10
-            width: parent.width
+            spacing: 2
+            width: operationsItem2.width
 
             Slider {
                 id: edgeSlider
@@ -376,7 +380,7 @@ Window {
 
                 font.pointSize: 10
 
-                color: "black"
+                color: textColor
             }
 
             Button {
@@ -422,7 +426,7 @@ Window {
 
                 font.pointSize: 10
 
-                color: "black"
+                color: textColor
             }
 
             Button {
@@ -468,7 +472,7 @@ Window {
 
                 font.pointSize: 10
 
-                color: "black"
+                color: textColor
             }
 
             Button {
@@ -495,10 +499,10 @@ Window {
 
                 stepSize: 1
 
-                width: rotate.width * 1
-                height: rotate.height * 3
-
                 property int rotateDegrees: 0
+
+                width: rotate.height
+                height: (rotate.width + rotate.height) / 2
 
                 wrap: true
 
@@ -524,7 +528,7 @@ Window {
 
                 font.pointSize: 10
 
-                color: "black"
+                color: textColor
             }
 
             Button {
@@ -548,18 +552,19 @@ Window {
     Item {
         id: operationsItem3
 
-        width: parent.width
-
-        anchors.horizontalCenter: parent.horizontalCenter
-
-        anchors.topMargin: 48
-
-        anchors.top: imageItem.bottom
-        anchors.bottom: parent.bottom
+        width: window.width
+        height: window.height
 
         RowLayout {
-            width: parent.width
+            width: window.width
             spacing: 20
+
+            // Anchors
+            anchors.bottom: parent.bottom
+            anchors.horizontalCenter: parent.horizontalCenter
+
+            // Margins
+            anchors.bottomMargin: window.height / 28
 
             // Fill the width of row
             Item {
@@ -567,9 +572,7 @@ Window {
             }
 
             Column {
-                width: 250
-
-                spacing: 10
+                spacing: 2
 
                 Slider {
                     id: brightnessSlider
@@ -577,8 +580,6 @@ Window {
                     from: -100
                     value: 0
                     to: 100
-
-                    anchors.horizontalCenter: parent.horizontalCenter
 
                     property real brightnessFactor: 0
 
@@ -592,12 +593,10 @@ Window {
 
                 Text {
                     text: "Brightness Factor: <b>" + brightnessSlider.brightnessFactor + "</b>"
-
                     anchors.horizontalCenter: parent.horizontalCenter
 
                     font.pointSize: 10
-
-                    color: "black"
+                    color: textColor
                 }
             }
 
@@ -614,8 +613,7 @@ Window {
             }
 
             Column {
-                width: 250
-                spacing: 10
+                spacing: 2
 
                 Slider {
                     id: contrastSlider
@@ -624,12 +622,11 @@ Window {
                     value: 0
                     to: 100
 
-                    anchors.horizontalCenter: parent.horizontalCenter
+                    snapMode: Slider.SnapAlways
+                    stepSize: 5
 
                     property real contrastFactor: 0
 
-                    snapMode: Slider.SnapAlways
-                    stepSize: 5
 
                     onMoved: {
                         contrastSlider.contrastFactor = value
@@ -639,13 +636,12 @@ Window {
                 Text {
                     text: "Contrast Factor: <b>" + contrastSlider.contrastFactor + "</b>"
 
+                    color: "black"
+                    font.pointSize: 10
+                    
                     anchors.horizontalCenter: parent.horizontalCenter
 
-                    font.pointSize: 10
-
-                    color: "black"
                 }
-
             }
 
             // Fill the width of row
