@@ -1,4 +1,3 @@
-# Set the minimum version of CMake that can be used
 cmake_minimum_required(VERSION 3.5)
 
 # Set the name of project -> sets PROJECT_NAME
@@ -32,7 +31,7 @@ find_package(Qt6 REQUIRED COMPONENTS Core Qml Quick Widgets Gui)
 # Add extra compiler flags
 add_definitions(-DMAGICKCORE_HDRI_ENABLE=1 -DMAGICKCORE_QUANTUM_DEPTH=16)
 
-# Generate executable in /bin
+# Generate executable in bin/
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 
 # For QML

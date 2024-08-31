@@ -3,7 +3,6 @@
 #include <QImage>
 #include <QUrl>
 #include <QImageWriter>
-#include <qlogging.h>
 
 #include "guiHandler.h"
 #include "Emagick.h"

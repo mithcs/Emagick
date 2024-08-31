@@ -1,5 +1,5 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef GUIHANDLER_H
+#define GUIHANDLER_H
 
 #include <QObject>
 #include <QString>
@@ -96,4 +96,4 @@ private:
     Magick::Image mainImage;
 };
 
-#endif // MAINWINDOW_H
+#endif

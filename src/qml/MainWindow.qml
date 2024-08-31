@@ -5,15 +5,11 @@ import QtQuick.Controls.Material
 import QtQuick.Dialogs
 import QtQuick.Layouts
 
-// Window type for simple GUI
 Window {
-    // Set id
     id: window
 
-    // Make it visible
     visible: true
 
-    // Set the title of window
     title: "Emagick"
 
     // Set theme and color
@@ -28,6 +24,7 @@ Window {
     // Global properties
     property string textColor: "white"
 
+
     // Container for image
     Item {
         id: imageItem
@@ -35,7 +32,6 @@ Window {
         width: window.width / 1.3
         height: window.height / 1.3
 
-        // Center the item
         anchors.centerIn: parent
         // anchors.verticalCenterOffset: -45
 
@@ -46,7 +42,6 @@ Window {
             width: parent.width
             height: parent.height
 
-            // Space between text and image
             spacing: 1
 
             Text {
@@ -67,7 +62,6 @@ Window {
 
                 anchors.horizontalCenter: parent.horizontalCenter
 
-                // Set width and height
                 width: imageCol.width / 1.2
                 height: imageCol.height / 1.2
 
@@ -92,14 +86,12 @@ Window {
             width: openCloseItem.width
             spacing: window.width / 30
 
-            // Fill the width of row
             Item {
                 Layout.fillWidth: true
             }
 
-            // Set up Open Image button
             Button {
-                // id: openImage
+                id: openImage
                 text: "Open Image"
 
                 onClicked: {
@@ -108,7 +100,6 @@ Window {
                 }
             }
 
-            // Set up Save Image button
             Button {
                 id: saveImage
                 text: "Save Image"
@@ -116,7 +107,6 @@ Window {
                 onClicked: saveFile.open()
             }
 
-            // Fill the width of row
             Item {
                 Layout.fillWidth: true
             }
@@ -130,14 +120,12 @@ Window {
     Item {
         id: operationsItem1
 
-        // Anchors
         anchors.left: parent.left
         anchors.top: parent.top
 
         width: (window.width - imageItem.width) / 2
         height: window.height
 
-        // Margins
         anchors.leftMargin: width / 4
         anchors.topMargin: height / 15
         anchors.bottomMargin: height / 15
@@ -155,7 +143,6 @@ Window {
                 onClicked: {
                     guiOps.applyNormalization()
 
-                    // Update image
                     mainImage.source = guiOps.updatedImage()
                 }
             }
@@ -169,7 +156,6 @@ Window {
                 onClicked: {
                     guiOps.applyGrayscale()
 
-                    // Update image
                     mainImage.source = guiOps.updatedImage()
                 }
             }
@@ -183,7 +169,6 @@ Window {
                 onClicked: {
                     guiOps.applyNegation()
 
-                    // Update image
                     mainImage.source = guiOps.updatedImage()
                 }
             }
@@ -197,7 +182,6 @@ Window {
                 onClicked: {
                     guiOps.applyDespeckle()
 
-                    // Update image
                     mainImage.source = guiOps.updatedImage()
                 }
             }
@@ -211,7 +195,6 @@ Window {
                 onClicked: {
                     guiOps.applyEqualization()
 
-                    // Update image
                     mainImage.source = guiOps.updatedImage()
                 }
             }
@@ -225,7 +208,6 @@ Window {
                 onClicked: {
                     guiOps.applyErasure()
 
-                    // Update image
                     mainImage.source = guiOps.updatedImage()
                 }
             }
@@ -239,7 +221,6 @@ Window {
                 onClicked: {
                     guiOps.applyFlip()
 
-                    // Update image
                     mainImage.source = guiOps.updatedImage()
                 }
             }
@@ -253,7 +234,6 @@ Window {
                 onClicked: {
                     guiOps.applyFlop()
 
-                    // Update image
                     mainImage.source = guiOps.updatedImage()
                 }
             }
@@ -267,7 +247,6 @@ Window {
                 onClicked: {
                     guiOps.applyMagnification()
 
-                    // Update image
                     mainImage.source = guiOps.updatedImage()
                 }
             }
@@ -281,7 +260,6 @@ Window {
                 onClicked: {
                     guiOps.applyMinification()
 
-                    // Update image
                     mainImage.source = guiOps.updatedImage()
                 }
             }
@@ -295,7 +273,6 @@ Window {
                 onClicked: {
                     guiOps.applyTrim()
 
-                    // Update image
                     mainImage.source = guiOps.updatedImage()
                 }
             }
@@ -323,7 +300,6 @@ Window {
                 onClicked: {
                     guiOps.applyNoise(noiseType.currentIndex)
 
-                    // Update image
                     mainImage.source = guiOps.updatedImage()
                 }
             }
@@ -335,14 +311,12 @@ Window {
     Item {
         id: operationsItem2
 
-        // Anchors
         anchors.right: parent.right
         anchors.top: parent.top
 
         width: (window.width - imageItem.width) / 2
         height: window.height
 
-        // Margins
         anchors.rightMargin: width / 4
         anchors.topMargin: height / 15
         anchors.bottomMargin: height / 15
@@ -393,7 +367,6 @@ Window {
                 onClicked: {
                     guiOps.applyEdge(edgeSlider.edgeValue)
 
-                    // Update image
                     mainImage.source = guiOps.updatedImage()
                 }
             }
@@ -439,7 +412,6 @@ Window {
                 onClicked: {
                     guiOps.applyGamma(gammaSlider.gammaValue)
 
-                    // Update image
                     mainImage.source = guiOps.updatedImage()
                 }
             }
@@ -485,7 +457,6 @@ Window {
                 onClicked: {
                     guiOps.applyNoiseReduction(noiseReductionSlider.noiseReductionOrder)
 
-                    // Update image
                     mainImage.source = guiOps.updatedImage()
                 }
             }
@@ -541,7 +512,6 @@ Window {
                 onClicked: {
                     guiOps.applyRotation(rotateDial.rotateDegrees)
 
-                    // Update image
                     mainImage.source = guiOps.updatedImage()
                 }
             }
@@ -559,14 +529,11 @@ Window {
             width: window.width
             spacing: 20
 
-            // Anchors
             anchors.bottom: parent.bottom
             anchors.horizontalCenter: parent.horizontalCenter
 
-            // Margins
             anchors.bottomMargin: window.height / 28
 
-            // Fill the width of row
             Item {
                 Layout.fillWidth: true
             }
@@ -607,7 +574,6 @@ Window {
                 onClicked: {
                     guiOps.applyBrightnessContrast(brightnessSlider.brightnessFactor, contrastSlider.contrastFactor)
 
-                    // Update image
                     mainImage.source = guiOps.updatedImage()
                 }
             }
@@ -644,7 +610,6 @@ Window {
                 }
             }
 
-            // Fill the width of row
             Item {
                 Layout.fillWidth: true
             }
@@ -659,10 +624,8 @@ Window {
         nameFilters: ["Images (*.jpg *.jpeg *.png *.bmp)", "All Files (*)"]
 
         onAccepted: {
-            // Load the image and set the source directly
             guiOps.loadImage(selectedFile)
 
-            // Update image
             mainImage.source = "data:image/jpeg;base64," + guiOps.getImageData()
         }
     }

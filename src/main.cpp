@@ -30,7 +30,7 @@ int main(int argc, char **argv) {
     // Create a QML application engine
     QQmlApplicationEngine engine;
 
-    // Expose MainWindow instance to QML
+    // Expose guiHandler instance to QML
     engine.rootContext()->setContextProperty("guiOps", &guiOps);
 
     // Load the QML file
