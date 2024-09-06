@@ -1,0 +1,16 @@
+
+                                   EMAGICK
+
+This was supposed to be a simple and easy to use image editor that can work with
+all types of images as well other formats like pdf. It would allow users to
+edit a single image or bulk images easily. This solution was supposed to be
+cross-platform.
+
+It uses:
+    C++ for back-end
+        ImageMagick for processing
+    QML for front-end
+
+
+This repository will be archived as I have decided to instead find some other
+and more minimal solution to get over this issue.

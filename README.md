@@ -1,5 +1,0 @@
-# EMAGICK
-
-## TODO
-
-- [ ]  Populate README
